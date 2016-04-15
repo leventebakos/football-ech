@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'matches',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -120,3 +121,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+
+#SOCIAL LOGIN
+SOCIAL_AUTH_FACEBOOK_KEY = '678275765648303'
+SOCIAL_AUTH_FACEBOOK_SECRET = '536c702284295ebd9bd020ee5345ea64'
