@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'matches',
+    'social.apps.django_app.default',
+    'social_login.apps.SocialLoginConfig',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -57,7 +58,7 @@ ROOT_URLCONF = 'football_ech.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -65,6 +66,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social.apps.django_app.context_processors.backends',
+                'social.apps.django_app.context_processors.login_redirect',
             ],
         },
     },
@@ -125,3 +128,12 @@ STATIC_URL = '/static/'
 #SOCIAL LOGIN
 SOCIAL_AUTH_FACEBOOK_KEY = '678275765648303'
 SOCIAL_AUTH_FACEBOOK_SECRET = '536c702284295ebd9bd020ee5345ea64'
+
+AUTHENTICATION_BACKENDS = [
+    'social.backends.facebook.FacebookOAuth2',
+    'social.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/home/'
+SOCIAL_AUTH_LOGIN_URL = '/'
