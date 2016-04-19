@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 from django.db import models
+from django.contrib.auth.models import User
 
 class Match(models.Model):
 	COUNTRY_CHOICES = (
@@ -36,3 +37,9 @@ class Match(models.Model):
 
 	def __str__(self):
 		return self.get_home_team_display() + "-" + self.get_away_team_display() + ": " + str(self.home_score) + "-" + str(self.away_score)
+
+class Tip(models.Model):
+	user = models.ForeignKey(User, models.CASCADE)
+	match = models.ForeignKey(Match, models.CASCADE)
+	home_score_tip = models.IntegerField()
+	away_score_tip = models.IntegerField()
