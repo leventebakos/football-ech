@@ -58,7 +58,7 @@ ROOT_URLCONF = 'football_ech.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates'),],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -128,6 +128,9 @@ STATIC_URL = '/static/'
 #SOCIAL LOGIN
 SOCIAL_AUTH_FACEBOOK_KEY = '678275765648303'
 SOCIAL_AUTH_FACEBOOK_SECRET = '536c702284295ebd9bd020ee5345ea64'
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '1072642851775-3m88t142rq5cq6egdg2dkglb54c8duh8.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '8XLfaMNu2-KAdkznfmOcaBl_'
 
 AUTHENTICATION_BACKENDS = [
     'social.backends.facebook.FacebookOAuth2',
