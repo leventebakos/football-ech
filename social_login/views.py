@@ -9,6 +9,7 @@ def login(request):
 def home(request):
     return render_to_response('social_login/home.html')
 
+@login_required(login_url='/')
 def logout(request):
     auth_logout(request)
     return redirect('/')

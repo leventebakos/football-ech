@@ -16,11 +16,13 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 import social_login.views
+import matches.views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url('', include('social.apps.django_app.urls', namespace='social')),
     url(r'^$', social_login.views.login),
-    url(r'^home/$', social_login.views.home),
     url(r'^logout/$', social_login.views.logout),
+    url(r'^matches/list_matches.html$', matches.views.list_matches),
+    
 ]
