@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Match, Tip
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
@@ -15,3 +15,9 @@ def list_matches(request):
             matches_view.append([match, None])
     context = {'matches_view': matches_view}
     return render(request, 'matches/list_matches.html', context)
+
+@login_required(login_url='/')
+def maketips(request, id):
+    match = get_object_or_404(Match, id=id)
+    return render(request, 'matches/list_matches.html')
+    

@@ -24,5 +24,5 @@ urlpatterns = [
     url(r'^$', social_login.views.login),
     url(r'^logout/$', social_login.views.logout),
     url(r'^matches/list_matches.html$', matches.views.list_matches),
-    
+    url(r'^matches/tips/([0-9]+)/$', matches.views.maketips),
 ]
