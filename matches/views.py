@@ -20,21 +20,30 @@ def list_matches(request):
 
 @login_required(login_url='/')
 def maketips(request, id):
+    match = get_object_or_404(Match, id = id)
+    tip = Tip.objects.filter(user = request.user, match = match)
     if request.method == 'POST':
-        form = NameForm(request.POST)
+        form = TipForm(request.POST)
         if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            return HttpResponseRedirect('/thanks/')
+            home_tip = form.cleaned_data['home_score_tip']
+            away_tip = form.cleaned_data['away_score_tip']
+            if tip.count() > 0:
+                tip_to_save = tip.first()
+            else:
+                tip_to_save = Tip()
+                tip_to_save.user = request.user
+                tip_to_save.match = match
+            tip_to_save.home_score_tip = home_tip
+            tip_to_save.away_score_tip = away_tip
+            tip_to_save.save()
+            return HttpResponseRedirect('/matches/list_matches.html')
+        tip_form = form
     else:
-        match = get_object_or_404(Match, id = id)
-        tip = Tip.objects.filter(user = request.user, match = match)
         if tip.count() > 0:
             tip = tip.first()
-            tip_form = TipForm(match.home_team, match.away_team, tip.home_score_tip, tip.away_score_tip)
+            tip_form = TipForm(initial={'home_score_tip': tip.home_score_tip, 'away_score_tip': tip.away_score_tip})
         else:
-            tip_form = TipForm(match.home_team, match.away_team)
+            tip_form = TipForm(initial={'home_score_tip': 0, 'away_score_tip': 0})
 
-    return render(request, 'matches/tips.html', {'tip_form': tip_form})
+    return render(request, 'matches/tips.html', {'tip_form': tip_form, 'id': id})
     

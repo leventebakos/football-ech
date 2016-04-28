@@ -43,3 +43,7 @@ class Tip(models.Model):
 	match = models.ForeignKey(Match, models.CASCADE)
 	home_score_tip = models.IntegerField()
 	away_score_tip = models.IntegerField()
+	
+	def __str__(self):
+		return self.user.username + ": " + self.match.home_team + " - " + self.match.away_team + ": " + str(self.home_score_tip) + " - " + str(self.away_score_tip)
+	
