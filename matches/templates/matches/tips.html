@@ -1,5 +1,9 @@
-<form action="/matches/tips/{{ id }}/"  method="post">
-    {% csrf_token %}
-    {{ tip_form }}
-    <input type="submit" value="Submit" />
-</form>
+{% extends "base.html" %}
+
+{% block content %}
+	<form action="/matches/tips/{{ id }}/"  method="post">
+	    {% csrf_token %}
+	    {{ tip_form }}
+	    <input type="submit" value="Submit" />
+	</form>
+{% endblock %}

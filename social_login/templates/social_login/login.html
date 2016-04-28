@@ -1,8 +1,8 @@
-{% if user and not user.is_anonymous %}
-    <a>Hello, {{ user.get_full_name }}!</a>
-    <br>
-    <p><a href="/matches/list_matches.html">Matches</a></p>
-    <p><a href="/logout">Logout</a></p>
-{% else %}
-    <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">Login with Facebook</a>
-{% endif %}
+{% extends "base.html" %}
+
+{% block content %}
+	{% if not user or user.is_anonymous %}
+		{% load staticfiles %}
+		<a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}" class="ml btn btn-block btn-social btn-sm btn-facebook"><i class="fa fa-facebook"></i>Facebook</a>
+	{% endif %}
+{% endblock %}
