@@ -3,6 +3,6 @@
 {% block content %}
 	{% if not user or user.is_anonymous %}
 		{% load staticfiles %}
-		<a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}" class="ml btn btn-block btn-social btn-sm btn-facebook"><i class="fa fa-facebook"></i>Facebook</a>
+		<a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">Facebook Login</a>
 	{% endif %}
 {% endblock %}
