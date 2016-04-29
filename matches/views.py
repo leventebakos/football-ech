@@ -4,6 +4,8 @@ from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from .forms import TipForm
 from django.http import HttpResponseRedirect
+from pip._vendor.requests.api import request
+from django.contrib.auth.models import User
 
 @login_required(login_url='/')
 def list_matches(request):
@@ -44,6 +46,48 @@ def maketips(request, id):
             tip_form = TipForm(initial={'home_score_tip': tip.home_score_tip, 'away_score_tip': tip.away_score_tip})
         else:
             tip_form = TipForm(initial={'home_score_tip': 0, 'away_score_tip': 0})
-
     return render(request, 'matches/tips.html', {'tip_form': tip_form, 'id': id})
+
+@login_required(login_url='/')
+def standings(request):
+    users = User.objects.all()
+    users_and_scores = []
+    for user in users:
+        user_tips = Tip.objects.filter(user = user)
+        score = 0
+        for tip in user_tips:
+            score += calculate_score(tip)
+        users_and_scores.append((user.username, score))
+    return render(request, 'matches/standings.html', {'users_and_scores': users_and_scores})
+            
+def calculate_score(tip):
+    #TODO: calculating the actual scores, returning in touple the counts of types of scores
+    result = 0
+    final_home_score = tip.match.home_score
+    final_away_score = tip.match.away_score
+    tipped_home_score = tip.home_score_tip
+    tipped_away_score = tip.away_score_tip
+    return result
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
