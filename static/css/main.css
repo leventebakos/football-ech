@@ -1,5 +1,11 @@
-#header div#snav div a{
-    display:block;
-    width:150px;
-    height:77px;
+.home_flag {
+    display: inline-block;
+}
+
+.match_tip {
+    display: inline-block;
+}
+
+.away_flag {
+    display: inline-block;
 }

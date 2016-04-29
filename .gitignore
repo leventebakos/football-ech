@@ -20,6 +20,9 @@ __pycache__/
 # C extensions
 *.so
 
+static/.DS_Store
+static/flags
+
 # Distribution / packaging
 .Python
 env/

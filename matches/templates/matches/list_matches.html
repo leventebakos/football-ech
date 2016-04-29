@@ -2,15 +2,31 @@
 
 {% block content %}
 	{% if matches_view %}
-	    <ul>
-	        {% for match_view in matches_view %}
-	        	{% if match_view.1 %}
-	            	<li>{{ match_view.0.home_team }} - {{ match_view.0.away_team }}: <a href="/matches/tips/{{ match_view.0.id }}/">{{ match_view.1.home_score_tip }} - {{ match_view.1.away_score_tip }}</a></li>
-	            {% else %}
-	            	<li>{{ match_view.0.home_team }} - {{ match_view.0.away_team }}: <a href="/matches/tips/{{ match_view.0.id }}/">Tip</a></li>
-	            {% endif %}
-	        {% endfor %}
-	    </ul>
+	        <div class="matches">
+		        {% for match_view in matches_view %}
+		        	{% load staticfiles %}
+		        	
+		        	<div class="match_pairing_and_tip">
+		        		<div class="home_flag">
+		        			{% with 'flags/'|add:match_view.0.home_team|add:'.png' as home_team %}
+				        		<img src="{% static home_team %}" alt="{{ match_view.0.home_team }}">
+				        	{% endwith %}	
+		        		</div>
+		        		<div class="match_tip">
+		        			{% if match_view.1 %}
+				            	<p><a href="/matches/tips/{{ match_view.0.id }}/">{{ match_view.1.home_score_tip }} - {{ match_view.1.away_score_tip }}</a>
+				            {% else %}
+				            	<p><a href="/matches/tips/{{ match_view.0.id }}/">Tip</a>
+				            {% endif %}
+		        		</div>
+			            <div class="away_flag">
+				            {% with 'flags/'|add:match_view.0.away_team|add:'.png' as away_team %}
+				        		<img src="{% static away_team %}" alt="{{ match_view.0.away_team }}">
+				        	{% endwith %}
+			        	</div>
+		        	</div>
+		        {% endfor %}
+	        </div>
 	{% else %}
 	    <p>No matches are available.</p>
 	{% endif %}
