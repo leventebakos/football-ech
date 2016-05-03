@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'social.apps.django_app.default',
     'social_login.apps.SocialLoginConfig',
     'crispy_forms',
+    'leagues.apps.LeaguesConfig',
 ]
 
 MIDDLEWARE_CLASSES = [

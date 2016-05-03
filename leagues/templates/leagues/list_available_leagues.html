@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+	{% if leagues %}
+		{% for league in leagues %}
+			<a href="">{{ league.league_name }}</a>
+		{% endfor %}
+	{% else %}
+	    <p>No leagues are available.</p>
+	{% endif %}
+{% endblock %}

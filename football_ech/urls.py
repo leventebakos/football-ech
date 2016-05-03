@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 import social_login.views
+import leagues.views
 import matches.views
 
 urlpatterns = [
@@ -26,4 +27,7 @@ urlpatterns = [
     url(r'^matches/list_matches.html$', matches.views.list_matches),
     url(r'^matches/tips/([0-9]+)/$', matches.views.maketips),
     url(r'^matches/standings.html$', matches.views.standings),
+    url(r'^leagues/create_league/$', leagues.views.create_league),
+    url(r'^leagues/my_leagues/$', leagues.views.get_leagues),
+    url(r'^leagues/join_league/$', leagues.views.list_available_leagues),
 ]

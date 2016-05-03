@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<form action="/leagues/create_league/"  method="post">
+	    {% csrf_token %}
+	    {{ league_form }}
+	    <input type="submit" value="Submit" />
+	</form>
+{% endblock %}
