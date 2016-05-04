@@ -1,9 +1,11 @@
 {% extends "base.html" %}
 
+{% load crispy_forms_tags %}
+
 {% block content %}
 	<form action="/matches/tips/{{ id }}/"  method="post">
 	    {% csrf_token %}
-	    {{ tip_form }}
-	    <input type="submit" value="Submit" />
+	    {{ tip_form|crispy }}
+	    <input class="btn btn-primary" type="submit" value="Submit" />
 	</form>
 {% endblock %}

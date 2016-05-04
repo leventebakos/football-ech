@@ -38,6 +38,15 @@ def list_available_leagues(request):
             leagues_to_return.append(league)
     return render(request, 'leagues/list_available_leagues.html', {'leagues': leagues_to_return})
 
+@login_required(login_url='/')
+def join_league(request, id):
+    league = get_object_or_404(League, id = id)
+    league_participant = LeagueParticipants.objects.filter(user = request.user, league = league)
+    if league_participant.count() == 0:
+        league_participant_to_save = league_participant_from_league_form(league, request)
+        league_participant_to_save.save()
+    return HttpResponseRedirect('/leagues/my_leagues/')
+
 def league_form_to_league_converter(league_form):
     result = League()
     result.league_name = league_form.cleaned_data['league_name']
