@@ -3,9 +3,13 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-	<form action="/leagues/create_league/"  method="post">
-	    {% csrf_token %}
-	    {{ league_form|crispy }}
-	    <input class="btn btn-primary" type="submit" value="Submit" />
-	</form>
+	<div class="row">
+		<div class="col-md-3">
+			<form action="/leagues/create_league/"  method="post">
+			    {% csrf_token %}
+			    {{ league_form|crispy }}
+			    <input class="btn btn-primary" type="submit" value="Submit" />
+			</form>
+		</div>
+	</div>
 {% endblock %}

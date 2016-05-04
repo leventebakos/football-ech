@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.db import models
 
 class League(models.Model):
-    league_name = models.CharField(max_length = 30)
+    league_name = models.CharField(max_length = 256)
     max_size = models.IntegerField()
     points_for_exact_guess = models.IntegerField()
     points_for_goal_difference = models.IntegerField()
