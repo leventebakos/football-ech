@@ -3,7 +3,7 @@
 {% block content %}
 	{% if leagues %}
 		{% for league in leagues %}
-			<p>{{ league.league_name }}</p>
+			<p><a href="/leagues/my_league/{{ league.id }}">{{ league.league_name }}</a></p>
 		{% endfor %}
 	{% else %}
 	    <p>No leagues are available.</p>

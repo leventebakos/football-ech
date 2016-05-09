@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
+from leagues.models import League
 
 class Match(models.Model):
 	COUNTRY_CHOICES = (
@@ -40,10 +41,11 @@ class Match(models.Model):
 
 class Tip(models.Model):
 	user = models.ForeignKey(User, models.CASCADE)
+	league = models.ForeignKey(League, models.CASCADE, null = True)
 	match = models.ForeignKey(Match, models.CASCADE)
 	home_score_tip = models.IntegerField()
 	away_score_tip = models.IntegerField()
 	
 	def __str__(self):
-		return self.user.username + ": " + self.match.home_team + " - " + self.match.away_team + ": " + str(self.home_score_tip) + " - " + str(self.away_score_tip)
+		return self.user.username + " - " + self.league.league_name + ": " + self.match.home_team + " - " + self.match.away_team + ": " + str(self.home_score_tip) + " - " + str(self.away_score_tip)
 	

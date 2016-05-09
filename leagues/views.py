@@ -47,6 +47,11 @@ def join_league(request, id):
         league_participant_to_save.save()
     return HttpResponseRedirect('/leagues/my_leagues/')
 
+@login_required(login_url='/')
+def league_details(request, id):
+    standings = get_standings(request, id)
+    return render(request, 'leagues/league_details.html', {'standings': standings})
+    
 def league_form_to_league_converter(league_form):
     result = League()
     result.league_name = league_form.cleaned_data['league_name']
@@ -64,6 +69,14 @@ def league_participant_from_league_form(league_to_save, request):
     result.user = request.user
     result.league = league_to_save
     return result
+
+def get_standings(request, id):
+    league = get_object_or_404(League, id = id)
+    league_participants = LeagueParticipants.objects.values_list('user', flat=True).filter(league = league)
+    users_and_scores = []
+    for participant in league_participants:
+        users_and_scores.append((participant, 0))
+    return users_and_scores
     
     
     
