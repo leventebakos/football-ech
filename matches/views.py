@@ -3,12 +3,13 @@ from .models import Match, Tip
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from .forms import TipForm
+from leagues.models import League
 from django.http import HttpResponseRedirect
 from pip._vendor.requests.api import request
 from django.contrib.auth.models import User
 
 def list_matches(request):
-    matches = Match.objects.filter(start_date__gt=datetime.now()).order_by('start_date')[:5]
+    matches = Match.objects.filter(start_date__gt=datetime.now(), is_finished = False).order_by('start_date')[:5]
     matches_view = []
     for match in matches:
         tip = Tip.objects.filter(user = request.user, match = match)
@@ -38,7 +39,7 @@ def maketips(request, league_id, match_id):
             tip_to_save.home_score_tip = home_tip
             tip_to_save.away_score_tip = away_tip
             tip_to_save.save()
-            return HttpResponseRedirect('/matches/list_matches.html')
+            return HttpResponseRedirect('/leagues/my_league/' + league_id + '/')
         tip_form = form
     else:
         if tip.count() > 0:
@@ -46,4 +47,4 @@ def maketips(request, league_id, match_id):
             tip_form = TipForm(initial={'home_score_tip': tip.home_score_tip, 'away_score_tip': tip.away_score_tip})
         else:
             tip_form = TipForm(initial={'home_score_tip': 0, 'away_score_tip': 0})
-    return render(request, 'matches/tips.html', {'tip_form': tip_form, 'id': id})
+    return render(request, 'matches/tips.html', {'tip_form': tip_form, 'match_id': match_id, 'league_id': league_id})

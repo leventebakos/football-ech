@@ -3,7 +3,7 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-	<form action="/matches/tips/{{ id }}/"  method="post">
+	<form action="/leagues/{{ league_id }}/tip/{{ match_id }}/"  method="post">
 	    {% csrf_token %}
 	    {{ tip_form|crispy }}
 	    <input class="btn btn-primary" type="submit" value="Submit" />
