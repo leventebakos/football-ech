@@ -35,6 +35,7 @@ class Match(models.Model):
 	home_score = models.IntegerField(default = 0)
 	away_score = models.IntegerField(default = 0)
 	start_date = models.DateTimeField()
+	is_finished = models.BooleanField(default = False)
 
 	def __str__(self):
 		return self.get_home_team_display() + "-" + self.get_away_team_display() + ": " + str(self.home_score) + "-" + str(self.away_score)

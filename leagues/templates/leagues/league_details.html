@@ -2,6 +2,6 @@
 
 {% block content %}
 	{% for user_score in standings %}
-		<p>{{ user_score.0 }} - {{ user_score.1 }}</p>
+		<p>{{ user_score.0.first_name }} {{ user_score.0.last_name }} - {{ user_score.1 }}</p>
 	{% endfor %}
 {% endblock %}

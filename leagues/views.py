@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .forms import LeagueForm
 from .models import League, LeagueParticipants
+from matches.models import Match, Tip
 from django.http import HttpResponseRedirect
 from pip._vendor.requests.api import request
 from django.contrib.auth.models import User
@@ -49,7 +50,10 @@ def join_league(request, id):
 
 @login_required(login_url='/')
 def league_details(request, id):
-    standings = get_standings(request, id)
+    league = get_object_or_404(League, id = id)
+    if LeagueParticipants.objects.filter(user = request.user, league = league).count() == 0:
+        return HttpResponseRedirect('/leagues/my_leagues/')
+    standings = get_standings(request, league)
     return render(request, 'leagues/league_details.html', {'standings': standings})
     
 def league_form_to_league_converter(league_form):
@@ -70,14 +74,65 @@ def league_participant_from_league_form(league_to_save, request):
     result.league = league_to_save
     return result
 
-def get_standings(request, id):
-    league = get_object_or_404(League, id = id)
-    league_participants = LeagueParticipants.objects.values_list('user', flat=True).filter(league = league)
+def get_standings(request, league):
+    league_participant_ids = LeagueParticipants.objects.values_list('user', flat=True).filter(league = league)
+    users = User.objects.filter(id__in = league_participant_ids).all()
     users_and_scores = []
-    for participant in league_participants:
-        users_and_scores.append((participant, 0))
+    for user in users:
+        users_and_scores.append((user, calculate_scores(user, league)))
     return users_and_scores
-    
-    
-    
+
+def calculate_scores(user, league):
+    result = 0
+    finished_matches = Match.objects.filter(is_finished = True)
+    for match in finished_matches:
+        tip = Tip.objects.filter(league = league, match = match, user = user)
+        if tip.count() == 0:
+            continue
+        else:
+            tip = tip.first()
+            home_score_tip = tip.home_score_tip
+            away_score_tip = tip.away_score_tip
+            actual_home_score = match.home_score
+            actual_away_score = match.away_score
+            if is_exact_guess(home_score_tip, away_score_tip, actual_home_score, actual_away_score):
+                result += league.points_for_exact_guess
+            if correct_goal_difference(home_score_tip, away_score_tip, actual_home_score, actual_away_score):
+                result += league.points_for_goal_difference
+            if correct_outcome(home_score_tip, away_score_tip, actual_home_score, actual_away_score):
+                result += league.points_for_outcome
+            if correct_number_of_goals(home_score_tip, away_score_tip, actual_home_score, actual_away_score):
+                result += league.points_for_number_of_goals
+            if correct_home_goals(home_score_tip, away_score_tip, actual_home_score, actual_away_score):
+                result += league.points_for_exact_home_goals
+            if correct_away_goals(home_score_tip, away_score_tip, actual_home_score, actual_away_score):
+                result += league.points_for_exact_away_goals
+    return result
+
+def is_exact_guess(home_score_tip, away_score_tip, actual_home_score, actual_away_score):
+    return home_score_tip == actual_home_score and away_score_tip == actual_away_score
+
+def correct_goal_difference(home_score_tip, away_score_tip, actual_home_score, actual_away_score):
+    return home_score_tip - away_score_tip == actual_home_score - actual_away_score
+
+def correct_outcome(home_score_tip, away_score_tip, actual_home_score, actual_away_score):
+    result = False
+    if  actual_home_score == actual_away_score and home_score_tip == away_score_tip:
+        result = True
+    elif actual_home_score > actual_away_score and home_score_tip > away_score_tip:
+        result = True
+    elif actual_home_score < actual_away_score and home_score_tip < away_score_tip:
+        result = True
+    return result
+        
+def correct_number_of_goals(home_score_tip, away_score_tip, actual_home_score, actual_away_score):
+    return home_score_tip + away_score_tip == actual_home_score + actual_away_score
+
+def correct_home_goals(home_score_tip, away_score_tip, actual_home_score, actual_away_score):
+    return home_score_tip == actual_home_score
+
+def correct_away_goals(home_score_tip, away_score_tip, actual_home_score, actual_away_score):
+    return away_score_tip == actual_away_score
+
+
     
