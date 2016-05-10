@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import LeagueForm
 from .models import League, LeagueParticipants
 from matches.models import Match, Tip
+from matches.views import list_matches
 from django.http import HttpResponseRedirect
 from pip._vendor.requests.api import request
 from django.contrib.auth.models import User
@@ -23,8 +24,8 @@ def create_league(request):
     return render(request, 'leagues/create_league.html', {'league_form': league_form})
 
 @login_required(login_url='/')
-def get_leagues(request):
-    leagues_from_participants = LeagueParticipants.objects.values_list('league', flat=True)
+def get_my_leagues(request):
+    leagues_from_participants = LeagueParticipants.objects.values_list('league', flat=True).filter(user = request.user)
     leagues = League.objects.filter(pk__in=leagues_from_participants).all()
     return render(request, 'leagues/my_leagues.html', {'leagues': leagues})
 
@@ -53,8 +54,9 @@ def league_details(request, id):
     league = get_object_or_404(League, id = id)
     if LeagueParticipants.objects.filter(user = request.user, league = league).count() == 0:
         return HttpResponseRedirect('/leagues/my_leagues/')
-    standings = get_standings(request, league)
-    return render(request, 'leagues/league_details.html', {'standings': standings})
+    standings = get_standings(league)
+    matches = list_matches(request)
+    return render(request, 'leagues/league_details.html', {'standings': standings, 'matches_view': matches['matches_view'], 'league_id': id})
     
 def league_form_to_league_converter(league_form):
     result = League()
@@ -74,7 +76,7 @@ def league_participant_from_league_form(league_to_save, request):
     result.league = league_to_save
     return result
 
-def get_standings(request, league):
+def get_standings(league):
     league_participant_ids = LeagueParticipants.objects.values_list('user', flat=True).filter(league = league)
     users = User.objects.filter(id__in = league_participant_ids).all()
     users_and_scores = []
