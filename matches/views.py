@@ -47,4 +47,6 @@ def maketips(request, league_id, match_id):
             tip_form = TipForm(initial={'home_score_tip': tip.home_score_tip, 'away_score_tip': tip.away_score_tip})
         else:
             tip_form = TipForm(initial={'home_score_tip': 0, 'away_score_tip': 0})
-    return render(request, 'matches/tips.html', {'tip_form': tip_form, 'match_id': match_id, 'league_id': league_id})
+        tip_form.fields['home_score_tip'].label = match.get_home_team_display
+        tip_form.fields['away_score_tip'].label = match.get_away_team_display
+    return render(request, 'matches/tips.html', {'tip_form': tip_form, 'match_id': match_id, 'league_id': league_id, 'league_name': league.league_name})

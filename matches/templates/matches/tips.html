@@ -3,6 +3,9 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+
+	<h1>{{ league_name }}</h1>
+
 	<form action="/leagues/{{ league_id }}/tip/{{ match_id }}/"  method="post">
 	    {% csrf_token %}
 	    {{ tip_form|crispy }}
