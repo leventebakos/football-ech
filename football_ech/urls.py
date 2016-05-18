@@ -19,6 +19,8 @@ import social_login.views
 import leagues.views
 import matches.views
 
+admin.autodiscover()
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url('', include('social.apps.django_app.urls', namespace='social')),
