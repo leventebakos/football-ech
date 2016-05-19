@@ -7,6 +7,7 @@ from leagues.models import League
 from django.http import HttpResponseRedirect
 from pip._vendor.requests.api import request
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 def list_matches(request):
     matches = Match.objects.filter(start_date__gt=datetime.now(), is_finished = False).order_by('start_date')[:5]
@@ -23,7 +24,7 @@ def list_matches(request):
 def maketips(request, league_id, match_id):
     league = get_object_or_404(League, id = league_id)
     match = get_object_or_404(Match, id = match_id)
-    if datetime.now() >= match.start_date:
+    if timezone.make_aware(datetime.datetime.now(), timezone.get_default_timezone())  >= match.start_date:
         return HttpResponseRedirect('/leagues/my_league/' + league_id + '/')
     tip = Tip.objects.filter(user = request.user, match = match, league = league)
     if request.method == 'POST':
