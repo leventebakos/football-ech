@@ -23,6 +23,8 @@ def list_matches(request):
 def maketips(request, league_id, match_id):
     league = get_object_or_404(League, id = league_id)
     match = get_object_or_404(Match, id = match_id)
+    if datetime.now() >= match.start_date:
+        return HttpResponseRedirect('/leagues/my_league/' + league_id + '/')
     tip = Tip.objects.filter(user = request.user, match = match, league = league)
     if request.method == 'POST':
         form = TipForm(request.POST)
