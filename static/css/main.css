@@ -4,10 +4,12 @@
 
 .country {
 	float: right;
+	position: absolute;
 }
 
 .flag {
 	float: right;
+	position: absolute;
 }
 
 .tip {
