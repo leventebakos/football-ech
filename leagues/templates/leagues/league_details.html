@@ -20,11 +20,9 @@
 					<tr>
 						<td>{{ user_score.0.first_name }} {{ user_score.0.last_name }}</td>
 						<td>{{ user_score.1.0 }}</td>
-						{% for tip in user_score.1.1 %}
-							{% if tip != -1 %}
-								<td>{{ tip }}</td>
-							{% endif %}
-						{% endfor %}
+						{% if user_score.1.exact_guess != -1 %}
+							<td>{{ user_score.1.exact_guess }}</td>
+						{% endif %}
 					</tr>
 				{% endfor %}
 			</tbody>

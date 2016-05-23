@@ -101,38 +101,38 @@ def calculate_scores(user, league):
             actual_away_score = match.away_score
             if is_exact_guess(home_score_tip, away_score_tip, actual_home_score, actual_away_score) and league.points_for_exact_guess != 0:
                 result += league.points_for_exact_guess
-                correct_tips[0] += 1
+                correct_tips["exact_guess"] += 1
             if correct_goal_difference(home_score_tip, away_score_tip, actual_home_score, actual_away_score) and league.points_for_goal_difference != 0:
                 result += league.points_for_goal_difference
-                correct_tips[1] += 1
+                correct_tips["goal_difference"] += 1
             if correct_outcome(home_score_tip, away_score_tip, actual_home_score, actual_away_score) and league.points_for_outcome != 0:
                 result += league.points_for_outcome
-                correct_tips[2] += 1
+                correct_tips["outcome"] += 1
             if correct_number_of_goals(home_score_tip, away_score_tip, actual_home_score, actual_away_score) and league.points_for_number_of_goals != 0:
                 result += league.points_for_number_of_goals
-                correct_tips[3] += 1
+                correct_tips["number_of_goals"] += 1
             if correct_home_goals(home_score_tip, away_score_tip, actual_home_score, actual_away_score) and league.points_for_exact_home_goals != 0:
                 result += league.points_for_exact_home_goals
-                correct_tips[4] += 1
+                correct_tips["home_goals"] += 1
             if correct_away_goals(home_score_tip, away_score_tip, actual_home_score, actual_away_score) and league.points_for_exact_away_goals != 0:
                 result += league.points_for_exact_away_goals
-                correct_tips[5] += 1
+                correct_tips["away_goals"] += 1
     return (result, correct_tips)
 
 def init_correct_tips(league):
-    result = [-1 for i in range(6)]
+    result = {'exact_guess': -1, "goal_difference": -1, "outcome": -1, "number_of_goals": -1, "home_goals": -1, "away_goals": -1}
     if league.points_for_exact_guess != 0:
-        result[0] = 0
+        result["exact_guess"] = 0
     if league.points_for_goal_difference != 0:
-        result[1] = 0
+        result["goal_difference"] = 0
     if league.points_for_outcome != 0:
-        result[2] = 0
+        result["outcome"] = 0
     if league.points_for_number_of_goals != 0:
-        result[3] = 0
+        result["number_of_goals"] = 0
     if league.points_for_exact_home_goals != 0:
-        result[4] = 0
+        result["home_goals"] = 0
     if league.points_for_exact_away_goals != 0:
-        result[5] = 0
+        result["away_goals"] = 0
     return result
 
 def get_league_scoring_conditions(league):
