@@ -1,12 +1,4 @@
-.home_flag {
-    display: inline-block;
-}
-
-.match_tip {
-    display: inline-block;
-}
-
-.away_flag {
+.match_tips {
     display: inline-block;
 }
 
@@ -29,4 +21,4 @@ th.headerSortDown {
 th.headerSortUp { 
     background-image: url(../img/small_asc.gif); 
     background-color: #9d9d9d; 
-} 
+}

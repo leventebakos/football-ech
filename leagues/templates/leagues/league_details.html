@@ -48,7 +48,7 @@
 		{% if matches_view %}
 			{% load staticfiles %}
 			{% for match_view in matches_view %}
-				<div>
+				<div class="match_tips">
 					<div class="flag_and_country">
 						<div class="flag">
 							{% with 'flags/'|add:match_view.0.home_team|add:'.png' as home_team %}
