@@ -18,6 +18,10 @@
 	position: absolute;
 }
 
+.matches {
+	position: relative;
+}
+
 th.header { 
     background-image: url(../img/small.gif); 
     cursor: pointer; 
