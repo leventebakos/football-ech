@@ -3,11 +3,11 @@
 }
 
 .match_tips {
-	
+	clear: both;
 }
 
 .flag_and_country {
-	
+	float: left;
 }
 
 .flag {
@@ -19,7 +19,7 @@
 }
 
 .tip {
-	
+	float: left;
 }
 
 th.header { 
