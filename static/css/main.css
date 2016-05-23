@@ -8,6 +8,7 @@
 
 .flag_and_country {
 	float: left;
+	width: 38%;
 }
 
 .flag {
@@ -20,6 +21,7 @@
 
 .tip {
 	float: left;
+	width: 24%;
 }
 
 th.header { 
