@@ -47,37 +47,39 @@
 	<div class="col-md-3">
 		{% if matches_view %}
 			{% load staticfiles %}
-			{% for match_view in matches_view %}
-				<div class="match_tips">
-					<div class="flag_and_country">
-						<div class="flag">
-							{% with 'flags/'|add:match_view.0.home_team|add:'.png' as home_team %}
-				        		<img src="{% static home_team %}" alt="{{ match_view.0.home_team }}">
-				        	{% endwith %}
-			        	</div>
-			        	<div class="country">
-							{{ match_view.0.get_home_team_display }}
+			<div class="matches">
+				{% for match_view in matches_view %}
+					<div class="match_tips">
+						<div class="flag_and_country">
+							<div class="flag">
+								{% with 'flags/'|add:match_view.0.home_team|add:'.png' as home_team %}
+					        		<img src="{% static home_team %}" alt="{{ match_view.0.home_team }}">
+					        	{% endwith %}
+				        	</div>
+				        	<div class="country">
+								{{ match_view.0.get_home_team_display }}
+							</div>
 						</div>
-					</div>
-					<div class="tip">
-						{% if match_view.1 %}
-			            	<a href="/leagues/{{ league_id }}/tip/{{ match_view.0.id }}/">{{ match_view.1.home_score_tip }} - {{ match_view.1.away_score_tip }}</a>
-			            {% else %}
-			            	<a href="/leagues/{{ league_id }}/tip/{{ match_view.0.id }}/">Tip</a>
-			            {% endif %}
-		            </div>
-		            <div class="flag_and_country">
-		            	<div class="flag">
-				            {% with 'flags/'|add:match_view.0.away_team|add:'.png' as away_team %}
-				        		<img src="{% static away_team %}" alt="{{ match_view.0.away_team }}">
-				        	{% endwith %}
-			        	</div>
-			        	<div class="country">
-					 		{{ match_view.0.get_away_team_display }}
+						<div class="tip">
+							{% if match_view.1 %}
+				            	<a href="/leagues/{{ league_id }}/tip/{{ match_view.0.id }}/">{{ match_view.1.home_score_tip }} - {{ match_view.1.away_score_tip }}</a>
+				            {% else %}
+				            	<a href="/leagues/{{ league_id }}/tip/{{ match_view.0.id }}/">Tip</a>
+				            {% endif %}
+			            </div>
+			            <div class="flag_and_country">
+			            	<div class="flag">
+					            {% with 'flags/'|add:match_view.0.away_team|add:'.png' as away_team %}
+					        		<img src="{% static away_team %}" alt="{{ match_view.0.away_team }}">
+					        	{% endwith %}
+				        	</div>
+				        	<div class="country">
+						 		{{ match_view.0.get_away_team_display }}
+						 	</div>
 					 	</div>
-				 	</div>
-				 </div>
-			{% endfor %}
+					 </div>
+				{% endfor %}
+			</div>
 		{% else %}
 		    <p>No upcoming matches.</p>
 		{% endif %}

@@ -4,16 +4,18 @@
 
 .country {
 	float: right;
-	position: absolute;
 }
 
 .flag {
 	float: right;
-	position: absolute;
 }
 
 .tip {
 	float: right;
+}
+
+.match_tips {
+	position: absolute;
 }
 
 th.header { 
