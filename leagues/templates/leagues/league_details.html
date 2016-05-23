@@ -20,23 +20,23 @@
 					<tr>
 						<td>{{ user_score.0.first_name }} {{ user_score.0.last_name }}</td>
 						<td>{{ user_score.1.0 }}</td>
-						{% if user_score.1.exact_guess != -1 %}
-							<td>{{ user_score.1.exact_guess }}</td>
+						{% if user_score.1.1.exact_guess != -1 %}
+							<td>{{ user_score.1.1.exact_guess }}</td>
 						{% endif %}
-						{% if user_score.1.goal_difference != -1 %}
-							<td>{{ user_score.1.goal_difference }}</td>
+						{% if user_score.1.1.goal_difference != -1 %}
+							<td>{{ user_score.1.1.goal_difference }}</td>
 						{% endif %}
-						{% if user_score.1.outcome != -1 %}
-							<td>{{ user_score.1.outcome }}</td>
+						{% if user_score.1.1.outcome != -1 %}
+							<td>{{ user_score.1.1.outcome }}</td>
 						{% endif %}
-						{% if user_score.1.number_of_goals != -1 %}
-							<td>{{ user_score.1.number_of_goals }}</td>
+						{% if user_score.1.1.number_of_goals != -1 %}
+							<td>{{ user_score.1.1.number_of_goals }}</td>
 						{% endif %}
-						{% if user_score.1.home_goals != -1 %}
-							<td>{{ user_score.1.home_goals }}</td>
+						{% if user_score.1.1.home_goals != -1 %}
+							<td>{{ user_score.1.1.home_goals }}</td>
 						{% endif %}
-						{% if user_score.1.away_goals != -1 %}
-							<td>{{ user_score.1.away_goals }}</td>
+						{% if user_score.1.1.away_goals != -1 %}
+							<td>{{ user_score.1.1.away_goals }}</td>
 						{% endif %}
 					</tr>
 				{% endfor %}
