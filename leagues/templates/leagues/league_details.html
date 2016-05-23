@@ -51,9 +51,7 @@
 	
 	<script>
 		$(document).ready(function() {
-		    $('#standings_table').DataTable( {
-		        "order": [[ 1, "desc" ]]
-		    } );
+			$("#standings_table").tablesorter(); 
 		} );
 	</script>
 {% endblock %}
