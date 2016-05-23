@@ -59,11 +59,13 @@
 							{{ match_view.0.get_home_team_display }}
 						</div>
 					</div>
-					{% if match_view.1 %}
-		            	<a href="/leagues/{{ league_id }}/tip/{{ match_view.0.id }}/">{{ match_view.1.home_score_tip }} - {{ match_view.1.away_score_tip }}</a>
-		            {% else %}
-		            	<a href="/leagues/{{ league_id }}/tip/{{ match_view.0.id }}/">Tip</a>
-		            {% endif %}
+					<div class="tip">
+						{% if match_view.1 %}
+			            	<a href="/leagues/{{ league_id }}/tip/{{ match_view.0.id }}/">{{ match_view.1.home_score_tip }} - {{ match_view.1.away_score_tip }}</a>
+			            {% else %}
+			            	<a href="/leagues/{{ league_id }}/tip/{{ match_view.0.id }}/">Tip</a>
+			            {% endif %}
+		            </div>
 		            <div class="flag_and_country">
 		            	<div class="flag">
 				            {% with 'flags/'|add:match_view.0.away_team|add:'.png' as away_team %}

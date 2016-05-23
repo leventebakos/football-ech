@@ -1,5 +1,17 @@
-.match_tips {
-    display: inline-block;
+.flag_and_country {
+	float: right;
+}
+
+.country {
+	float: right;
+}
+
+.flag {
+	float: right;
+}
+
+.tip {
+	float: right;
 }
 
 th.header { 
