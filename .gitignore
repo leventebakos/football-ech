@@ -22,7 +22,6 @@ __pycache__/
 *.so
 
 static/.DS_Store
-static/flags
 
 # Distribution / packaging
 .Python
