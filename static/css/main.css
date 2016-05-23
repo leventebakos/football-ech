@@ -22,7 +22,9 @@
 .tip {
 	float: left;
 	width: 24%;
-	height: 68px;
+	line-height: 68px;
+	display: table-cell;
+	vertical-align: middle;
 }
 
 th.header { 
