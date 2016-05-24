@@ -65,7 +65,8 @@ def league_details(request, id):
     group_D_matches = get_group_matches("D", league, request)
     group_E_matches = get_group_matches("E", league, request)
     group_F_matches = get_group_matches("F", league, request)
-    return render(request, 'leagues/league_details.html', {'standings': standings, 'matches_view': matches['matches_view'], 'league_id': id, 'scoring_conditions': scoring_conditions, 'league_name': league.league_name, 'group_A_matches': group_A_matches, 'group_B_matches': group_B_matches, 'group_C_matches': group_C_matches, 'group_D_matches': group_D_matches, 'group_E_matches': group_E_matches, 'group_F_matches': group_F_matches})
+    group_A_header = get_group_headers("A")
+    return render(request, 'leagues/league_details.html', {'standings': standings, 'matches_view': matches['matches_view'], 'league_id': id, 'scoring_conditions': scoring_conditions, 'league_name': league.league_name, 'group_A_matches': group_A_matches, 'group_A_header': group_A_header, 'group_B_matches': group_B_matches, 'group_C_matches': group_C_matches, 'group_D_matches': group_D_matches, 'group_E_matches': group_E_matches, 'group_F_matches': group_F_matches})
 
 def get_group_matches(group_id, league, request):
     matches = Match.objects.filter(group = group_id)
@@ -83,11 +84,12 @@ def get_group_matches(group_id, league, request):
                 else:
                     to_append.append("No tip")
             else:
-                to_append.append("Not finished yet")
+                to_append.append("Game not started yet")
         result.append(to_append)
     return result
-                
 
+def get_group_headers(group_id):
+    return Match.objects.filter(group = group_id)
  
 def league_form_to_league_converter(league_form):
     result = League()

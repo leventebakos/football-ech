@@ -90,12 +90,9 @@
 			<thead>
 				<tr>
 					<th>Group A</th>
-					<th>1</th>
-					<th>2</th>
-					<th>3</th>
-					<th>4</th>
-					<th>5</th>
-					<th>6</th>
+					{% for match in group_A_header %}
+						<th>{{ match.get_home_team_display}} - {{ match.get_away_team_display}}</th>
+					{% endfor %}
 				</tr>
 			</thead>
 			<tbody>
