@@ -2,89 +2,87 @@
 
 {% block content %}
 
-	<div>
-		<div class="col-md-9">
-			<table id="standings_table" class="table table-striped table-bordered">
-				<caption><h1>{{ league_name }}</h1></caption>
-				<thead>
+	<div class="col-md-9">
+		<table id="standings_table" class="table table-striped table-bordered">
+			<caption><h1>{{ league_name }}</h1></caption>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Points</th>
+					{% for scoring_condition in scoring_conditions %}
+						<div><th>{{ scoring_condition }}</th></div>
+					{% endfor %}
+				</tr>
+			</thead>
+			<tbody>
+				{% for user_score in standings %}
 					<tr>
-						<th>Name</th>
-						<th>Points</th>
-						{% for scoring_condition in scoring_conditions %}
-							<div><th>{{ scoring_condition }}</th></div>
-						{% endfor %}
+						<td>{{ user_score.0.first_name }} {{ user_score.0.last_name }}</td>
+						<td>{{ user_score.1.0 }}</td>
+						{% if user_score.1.1.exact_guess != -1 %}
+							<td>{{ user_score.1.1.exact_guess }}</td>
+						{% endif %}
+						{% if user_score.1.1.goal_difference != -1 %}
+							<td>{{ user_score.1.1.goal_difference }}</td>
+						{% endif %}
+						{% if user_score.1.1.outcome != -1 %}
+							<td>{{ user_score.1.1.outcome }}</td>
+						{% endif %}
+						{% if user_score.1.1.number_of_goals != -1 %}
+							<td>{{ user_score.1.1.number_of_goals }}</td>
+						{% endif %}
+						{% if user_score.1.1.home_goals != -1 %}
+							<td>{{ user_score.1.1.home_goals }}</td>
+						{% endif %}
+						{% if user_score.1.1.away_goals != -1 %}
+							<td>{{ user_score.1.1.away_goals }}</td>
+						{% endif %}
 					</tr>
-				</thead>
-				<tbody>
-					{% for user_score in standings %}
-						<tr>
-							<td>{{ user_score.0.first_name }} {{ user_score.0.last_name }}</td>
-							<td>{{ user_score.1.0 }}</td>
-							{% if user_score.1.1.exact_guess != -1 %}
-								<td>{{ user_score.1.1.exact_guess }}</td>
-							{% endif %}
-							{% if user_score.1.1.goal_difference != -1 %}
-								<td>{{ user_score.1.1.goal_difference }}</td>
-							{% endif %}
-							{% if user_score.1.1.outcome != -1 %}
-								<td>{{ user_score.1.1.outcome }}</td>
-							{% endif %}
-							{% if user_score.1.1.number_of_goals != -1 %}
-								<td>{{ user_score.1.1.number_of_goals }}</td>
-							{% endif %}
-							{% if user_score.1.1.home_goals != -1 %}
-								<td>{{ user_score.1.1.home_goals }}</td>
-							{% endif %}
-							{% if user_score.1.1.away_goals != -1 %}
-								<td>{{ user_score.1.1.away_goals }}</td>
-							{% endif %}
-						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-		</div>
-		
-		<div class="col-md-3">
-			<h3>Next 5 matches</h3>
-			{% if matches_view %}
-				{% load staticfiles %}
-				<div class="matches">
-					{% for match_view in matches_view %}
-						<div class="match_tips">
-							<div class="flag_and_country">
-								<div class="flag">
-									{% with 'flags/'|add:match_view.0.home_team|add:'.png' as home_team %}
-						        		<img src="{% static home_team %}" alt="{{ match_view.0.home_team }}">
-						        	{% endwith %}
-					        	</div>
-					        	<div class="country">
-									{{ match_view.0.get_home_team_display }}
-								</div>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	
+	<div class="col-md-3 next_5_matches">
+		<h3>Next 5 matches</h3>
+		{% if matches_view %}
+			{% load staticfiles %}
+			<div class="matches">
+				{% for match_view in matches_view %}
+					<div class="match_tips">
+						<div class="flag_and_country">
+							<div class="flag">
+								{% with 'flags/'|add:match_view.0.home_team|add:'.png' as home_team %}
+					        		<img src="{% static home_team %}" alt="{{ match_view.0.home_team }}">
+					        	{% endwith %}
+				        	</div>
+				        	<div class="country">
+								{{ match_view.0.get_home_team_display }}
 							</div>
-							<div class="tip">
-								{% if match_view.1 %}
-					            	<a href="/leagues/{{ league_id }}/tip/{{ match_view.0.id }}/">{{ match_view.1.home_score_tip }} - {{ match_view.1.away_score_tip }}</a>
-					            {% else %}
-					            	<a href="/leagues/{{ league_id }}/tip/{{ match_view.0.id }}/">Tip</a>
-					            {% endif %}
-				            </div>
-				            <div class="flag_and_country">
-				            	<div class="flag">
-						            {% with 'flags/'|add:match_view.0.away_team|add:'.png' as away_team %}
-						        		<img src="{% static away_team %}" alt="{{ match_view.0.away_team }}">
-						        	{% endwith %}
-					        	</div>
-					        	<div class="country">
-							 		{{ match_view.0.get_away_team_display }}
-							 	</div>
+						</div>
+						<div class="tip">
+							{% if match_view.1 %}
+				            	<a href="/leagues/{{ league_id }}/tip/{{ match_view.0.id }}/">{{ match_view.1.home_score_tip }} - {{ match_view.1.away_score_tip }}</a>
+				            {% else %}
+				            	<a href="/leagues/{{ league_id }}/tip/{{ match_view.0.id }}/">Tip</a>
+				            {% endif %}
+			            </div>
+			            <div class="flag_and_country">
+			            	<div class="flag">
+					            {% with 'flags/'|add:match_view.0.away_team|add:'.png' as away_team %}
+					        		<img src="{% static away_team %}" alt="{{ match_view.0.away_team }}">
+					        	{% endwith %}
+				        	</div>
+				        	<div class="country">
+						 		{{ match_view.0.get_away_team_display }}
 						 	</div>
-						 </div>
-					{% endfor %}
-				</div>
-			{% else %}
-			    <p>No upcoming matches.</p>
-			{% endif %}
-		</div>
+					 	</div>
+					 </div>
+				{% endfor %}
+			</div>
+		{% else %}
+		    <p>No upcoming matches.</p>
+		{% endif %}
 	</div>
 	
 	<div class="col-md-12 group">
