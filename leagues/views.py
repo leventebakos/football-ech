@@ -57,8 +57,17 @@ def league_details(request, id):
     scoring_conditions = get_league_scoring_conditions(league);
     standings = get_standings(league)
     matches = list_matches(request)
-    return render(request, 'leagues/league_details.html', {'standings': standings, 'matches_view': matches['matches_view'], 'league_id': id, 'scoring_conditions': scoring_conditions, 'league_name': league.league_name})
-    
+    group_A_matches = get_group_matches("A")
+    group_B_matches = get_group_matches("B")
+    group_C_matches = get_group_matches("C")
+    group_D_matches = get_group_matches("D")
+    group_E_matches = get_group_matches("E")
+    group_F_matches = get_group_matches("F")
+    return render(request, 'leagues/league_details.html', {'standings': standings, 'matches_view': matches['matches_view'], 'league_id': id, 'scoring_conditions': scoring_conditions, 'league_name': league.league_name, 'group_A_matches': group_A_matches, 'group_B_matches': group_B_matches, 'group_C_matches': group_C_matches, 'group_D_matches': group_D_matches, 'group_E_matches': group_E_matches, 'group_F_matches': group_F_matches})
+
+def get_group_matches(group_id):
+    return Match.objects.filter(group = group_id)
+ 
 def league_form_to_league_converter(league_form):
     result = League()
     result.league_name = league_form.cleaned_data['league_name']
