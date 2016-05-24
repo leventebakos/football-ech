@@ -74,7 +74,7 @@ def league_details(request, id):
     return render(request, 'leagues/league_details.html', {'standings': standings, 'matches_view': matches['matches_view'], 'league_id': id, 'scoring_conditions': scoring_conditions, 'league_name': league.league_name, 'group_A_matches': group_A_matches, 'group_A_header': group_A_header, 'group_B_matches': group_B_matches, 'group_B_header': group_B_header, 'group_C_matches': group_C_matches, 'group_C_header': group_C_header, 'group_D_matches': group_D_matches, 'group_D_header': group_D_header, 'group_E_matches': group_E_matches, 'group_E_header': group_E_header, 'group_F_matches': group_F_matches, 'group_F_header': group_F_header})
 
 def get_group_matches(group_id, league, request):
-    matches = Match.objects.filter(group = group_id)
+    matches = Match.objects.filter(group = group_id).order_by('start_date')
     users_from_participants = LeagueParticipants.objects.values_list('user', flat=True).filter(league = league)
     users = User.objects.filter(pk__in=users_from_participants).all()
     result = []
@@ -103,7 +103,7 @@ def get_group_matches(group_id, league, request):
     return result
 
 def get_group_headers(group_id):
-    return Match.objects.filter(group = group_id)
+    return Match.objects.filter(group = group_id).order_by('start_date')
  
 def league_form_to_league_converter(league_form):
     result = League()
