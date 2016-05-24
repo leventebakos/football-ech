@@ -39,7 +39,7 @@ class Match(models.Model):
 	group = models.CharField(max_length = 20, null = True)
 
 	def __str__(self):
-		return self.get_home_team_display() + "-" + self.get_away_team_display() + ": " + str(self.home_score) + "-" + str(self.away_score) + "___" + str(self.start_date)
+		return self.get_home_team_display() + "-" + self.get_away_team_display() + ": " + str(self.home_score) + "-" + str(self.away_score) + "___" + str(self.start_date) + " group: " + str(self.group)
 
 class Tip(models.Model):
 	user = models.ForeignKey(User, models.CASCADE)
