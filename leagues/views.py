@@ -90,7 +90,12 @@ def get_group_matches(group_id, league, request):
                     to_append.append("No tip")
             else:
                 if user == request.user:
-                    to_append.append('<a href="/leagues/' + str(league.id) + '/tip/' + str(match.id) + '/">Tip</a>')
+                    tip = Tip.objects.filter(league = league, match = match, user = user)
+                    link_text = "Tip"
+                    if tip.count() > 0:
+                        tip = tip.first()
+                        link_text = str(tip.home_score_tip) + "-" + str(tip.away_score_tip) 
+                    to_append.append('<a href="/leagues/' + str(league.id) + '/tip/' + str(match.id) + '/">' + link_text + '</a>')
                     
                 else:
                     to_append.append("Game not started yet")
