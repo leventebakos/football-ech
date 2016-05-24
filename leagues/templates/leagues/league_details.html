@@ -101,7 +101,9 @@
 			<tbody>
 				<tr>
 					{% for match in group_A_matches %}
-						<td>{{ match }}</td>
+						{% for column in match %}
+							<td>{{ column }}</td>
+						{% endfor %}
 					{% endfor %}
 				</tr>
 			</tbody>

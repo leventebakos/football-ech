@@ -73,7 +73,7 @@ def get_group_matches(group_id, league, request):
     users = User.objects.filter(pk__in=users_from_participants).all()
     result = []
     for user in users:
-        to_append = [user]
+        to_append = [user.first_name + " " + user.last_name]
         for match in matches:
             if match.is_finished or timezone.make_aware(datetime.now(), timezone.get_default_timezone())  >= match.start_date:
                 tip = Tip.objects.filter(league = league, match = match, user = user)
