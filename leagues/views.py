@@ -84,7 +84,7 @@ def get_group_matches(group_id, league, request):
                     to_append.append("No tip")
             else:
                 to_append.append("Not finished yet")
-        resutl.append(to_append)
+        result.append(to_append)
     return result
                 
 
