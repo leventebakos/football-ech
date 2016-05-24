@@ -89,7 +89,10 @@ def get_group_matches(group_id, league, request):
                 else:
                     to_append.append("No tip")
             else:
-                to_append.append("Game not started yet")
+                if user == request.user:
+                    to_append.append("TODO tips")
+                else:
+                    to_append.append("Game not started yet")
         result.append(to_append)
     return result
 
