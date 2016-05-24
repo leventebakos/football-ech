@@ -7,6 +7,8 @@ from matches.views import list_matches
 from django.http import HttpResponseRedirect
 from pip._vendor.requests.api import request
 from django.contrib.auth.models import User
+from django.utils import timezone
+from datetime import datetime
 
 @login_required(login_url='/')
 def create_league(request):
@@ -57,16 +59,34 @@ def league_details(request, id):
     scoring_conditions = get_league_scoring_conditions(league);
     standings = get_standings(league)
     matches = list_matches(request)
-    group_A_matches = get_group_matches("A")
-    group_B_matches = get_group_matches("B")
-    group_C_matches = get_group_matches("C")
-    group_D_matches = get_group_matches("D")
-    group_E_matches = get_group_matches("E")
-    group_F_matches = get_group_matches("F")
+    group_A_matches = get_group_matches("A", league, request)
+    group_B_matches = get_group_matches("B", league, request)
+    group_C_matches = get_group_matches("C", league, request)
+    group_D_matches = get_group_matches("D", league, request)
+    group_E_matches = get_group_matches("E", league, request)
+    group_F_matches = get_group_matches("F", league, request)
     return render(request, 'leagues/league_details.html', {'standings': standings, 'matches_view': matches['matches_view'], 'league_id': id, 'scoring_conditions': scoring_conditions, 'league_name': league.league_name, 'group_A_matches': group_A_matches, 'group_B_matches': group_B_matches, 'group_C_matches': group_C_matches, 'group_D_matches': group_D_matches, 'group_E_matches': group_E_matches, 'group_F_matches': group_F_matches})
 
-def get_group_matches(group_id):
-    return Match.objects.filter(group = group_id)
+def get_group_matches(group_id, league, request):
+    matches = Match.objects.filter(group = group_id)
+    users = LeagueParticipants.objects.filter(league = league)
+    result = []
+    for user in users:
+        to_append = [user]
+        for match in matches:
+            if match.is_finished or timezone.make_aware(datetime.now(), timezone.get_default_timezone())  >= match.start_date:
+                tip = Tip.objects.filter(league = league, match = match, user = user)
+                if tip.count() > 0:
+                    tip = tip.first()
+                    to_append.append(str(tip.home_score_tip) + "-" + str(tip.away_score_tip))
+                else:
+                    to_append.append("No tip")
+            else:
+                to_append.append("Not finished yet")
+        resutl.append(to_append)
+    return result
+                
+
  
 def league_form_to_league_converter(league_form):
     result = League()

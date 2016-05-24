@@ -90,23 +90,20 @@
 			<thead>
 				<tr>
 					<th>Group A</th>
-					{% for group_A_match in group_A_matches %}
-						<th>{{ group_A_match.get_home_team_display }} - {{ group_A_match.get_away_team_display }}</th>
-					{% endfor %}
+					<th>1</th>
+					<th>2</th>
+					<th>3</th>
+					<th>4</th>
+					<th>5</th>
+					<th>6</th>
 				</tr>
 			</thead>
 			<tbody>
-				{% for user_score in standings %}
-					<tr>
-						<td>{{ user_score.0.first_name }} {{ user_score.0.last_name }}</td>
-						<td>TODO</td>
-						<td>TODO</td>
-						<td>TODO</td>
-						<td>TODO</td>
-						<td>TODO</td>
-						<td>TODO</td>
-					</tr>
-				{% endfor %}
+				<tr>
+					{% for match in group_A_matches %}
+						<td>{{ match }}</td>
+					{% endfor %}
+				</tr>
 			</tbody>
 		</table>
 	</div>
