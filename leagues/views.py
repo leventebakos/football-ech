@@ -70,7 +70,7 @@ def league_details(request, id):
 def get_group_matches(group_id, league, request):
     matches = Match.objects.filter(group = group_id)
     users_from_participants = LeagueParticipants.objects.values_list('user', flat=True).filter(league = league)
-    users = League.objects.filter(pk__in=users_from_participants).all()
+    users = User.objects.filter(pk__in=users_from_participants).all()
     result = []
     for user in users:
         to_append = [user]
