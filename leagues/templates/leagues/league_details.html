@@ -107,6 +107,116 @@
 		</table>
 	</div>
 	
+	<div class="col-md-12">
+		<table id="group_B_matches" class="table table-striped table-bordered">
+			<thead>
+				<tr>
+					<th>Group B</th>
+					{% for match in group_B_header %}
+						<th>{{ match.get_home_team_display}} - {{ match.get_away_team_display}}</th>
+					{% endfor %}
+				</tr>
+			</thead>
+			<tbody>
+				{% for match in group_B_matches %}
+					<tr>
+						{% for column in match %}
+							<td>{{ column }}</td>
+						{% endfor %}
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	
+	<div class="col-md-12">
+		<table id="group_C_matches" class="table table-striped table-bordered">
+			<thead>
+				<tr>
+					<th>Group C</th>
+					{% for match in group_C_header %}
+						<th>{{ match.get_home_team_display}} - {{ match.get_away_team_display}}</th>
+					{% endfor %}
+				</tr>
+			</thead>
+			<tbody>
+				{% for match in group_C_matches %}
+					<tr>
+						{% for column in match %}
+							<td>{{ column }}</td>
+						{% endfor %}
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	
+	<div class="col-md-12">
+		<table id="group_D_matches" class="table table-striped table-bordered">
+			<thead>
+				<tr>
+					<th>Group D</th>
+					{% for match in group_D_header %}
+						<th>{{ match.get_home_team_display}} - {{ match.get_away_team_display}}</th>
+					{% endfor %}
+				</tr>
+			</thead>
+			<tbody>
+				{% for match in group_D_matches %}
+					<tr>
+						{% for column in match %}
+							<td>{{ column }}</td>
+						{% endfor %}
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	
+	<div class="col-md-12">
+		<table id="group_E_matches" class="table table-striped table-bordered">
+			<thead>
+				<tr>
+					<th>Group E</th>
+					{% for match in group_E_header %}
+						<th>{{ match.get_home_team_display}} - {{ match.get_away_team_display}}</th>
+					{% endfor %}
+				</tr>
+			</thead>
+			<tbody>
+				{% for match in group_E_matches %}
+					<tr>
+						{% for column in match %}
+							<td>{{ column }}</td>
+						{% endfor %}
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	
+	<div class="col-md-12">
+		<table id="group_F_matches" class="table table-striped table-bordered">
+			<thead>
+				<tr>
+					<th>Group F</th>
+					{% for match in group_F_header %}
+						<th>{{ match.get_home_team_display}} - {{ match.get_away_team_display}}</th>
+					{% endfor %}
+				</tr>
+			</thead>
+			<tbody>
+				{% for match in group_F_matches %}
+					<tr>
+						{% for column in match %}
+							<td>{{ column }}</td>
+						{% endfor %}
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	
 	<script>
 		$(document).ready(function() {
 			$("#standings_table").tablesorter({sortList: [[1,1], [2,1]]}); 

@@ -66,7 +66,12 @@ def league_details(request, id):
     group_E_matches = get_group_matches("E", league, request)
     group_F_matches = get_group_matches("F", league, request)
     group_A_header = get_group_headers("A")
-    return render(request, 'leagues/league_details.html', {'standings': standings, 'matches_view': matches['matches_view'], 'league_id': id, 'scoring_conditions': scoring_conditions, 'league_name': league.league_name, 'group_A_matches': group_A_matches, 'group_A_header': group_A_header, 'group_B_matches': group_B_matches, 'group_C_matches': group_C_matches, 'group_D_matches': group_D_matches, 'group_E_matches': group_E_matches, 'group_F_matches': group_F_matches})
+    group_B_header = get_group_headers("B")
+    group_C_header = get_group_headers("C")
+    group_D_header = get_group_headers("D")
+    group_E_header = get_group_headers("E")
+    group_F_header = get_group_headers("F")
+    return render(request, 'leagues/league_details.html', {'standings': standings, 'matches_view': matches['matches_view'], 'league_id': id, 'scoring_conditions': scoring_conditions, 'league_name': league.league_name, 'group_A_matches': group_A_matches, 'group_A_header': group_A_header, 'group_B_matches': group_B_matches, 'group_B_header': group_B_header, 'group_C_matches': group_C_matches, 'group_C_header': group_C_header, 'group_D_matches': group_D_matches, 'group_D_header': group_D_header, 'group_E_matches': group_E_matches, 'group_E_header': group_E_header, 'group_F_matches': group_F_matches, 'group_F_header': group_F_header})
 
 def get_group_matches(group_id, league, request):
     matches = Match.objects.filter(group = group_id)
