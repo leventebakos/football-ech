@@ -1,7 +1,3 @@
-.matches {
-	
-}
-
 .match_tips {
 	clear: both;
 }
@@ -11,20 +7,16 @@
 	width: 38%;
 }
 
-.flag {
-	
-}
-
-.country {
-	
-}
-
 .tip {
 	float: left;
 	width: 24%;
 	line-height: 68px;
 	display: table-cell;
 	vertical-align: middle;
+}
+
+.group {
+	margin-bottom: 40px;
 }
 
 th.header { 
