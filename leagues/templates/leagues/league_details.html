@@ -121,7 +121,7 @@
 				{% for match in group_B_matches %}
 					<tr>
 						{% for column in match %}
-							<td>{{ column }}</td>
+							<td>{% autoescape off %}{{ column }}{% endautoescape %}</td>
 						{% endfor %}
 					</tr>
 				{% endfor %}
@@ -143,7 +143,7 @@
 				{% for match in group_C_matches %}
 					<tr>
 						{% for column in match %}
-							<td>{{ column }}</td>
+							<td>{% autoescape off %}{{ column }}{% endautoescape %}</td>
 						{% endfor %}
 					</tr>
 				{% endfor %}
@@ -165,7 +165,7 @@
 				{% for match in group_D_matches %}
 					<tr>
 						{% for column in match %}
-							<td>{{ column }}</td>
+							<td>{% autoescape off %}{{ column }}{% endautoescape %}</td>
 						{% endfor %}
 					</tr>
 				{% endfor %}
@@ -187,7 +187,7 @@
 				{% for match in group_E_matches %}
 					<tr>
 						{% for column in match %}
-							<td>{{ column }}</td>
+							<td>{% autoescape off %}{{ column }}{% endautoescape %}</td>
 						{% endfor %}
 					</tr>
 				{% endfor %}
@@ -209,7 +209,7 @@
 				{% for match in group_F_matches %}
 					<tr>
 						{% for column in match %}
-							<td>{{ column }}</td>
+							<td>{% autoescape off %}{{ column }}{% endautoescape %}</td>
 						{% endfor %}
 					</tr>
 				{% endfor %}
