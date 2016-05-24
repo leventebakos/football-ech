@@ -19,10 +19,6 @@
 	margin-bottom: 40px;
 }
 
-.group td, th {
-	text-align: center;
-}
-
 th.header { 
     background-image: url(../img/small.gif); 
     cursor: pointer; 

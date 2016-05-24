@@ -39,7 +39,7 @@ def list_available_leagues(request):
         max_participants_in_league = league.max_size
         current_participants_in_league = LeagueParticipants.objects.filter(league = league).count()
         if current_participants_in_league < max_participants_in_league and LeagueParticipants.objects.filter(user = request.user, league = league).count() == 0:
-            leagues_to_return.append(league)
+            leagues_to_return.append([league, max_participants_in_league - current_participants_in_league])
     return render(request, 'leagues/list_available_leagues.html', {'leagues': leagues_to_return})
 
 @login_required(login_url='/')
