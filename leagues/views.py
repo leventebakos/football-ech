@@ -90,7 +90,8 @@ def get_group_matches(group_id, league, request):
                     to_append.append("No tip")
             else:
                 if user == request.user:
-                    to_append.append("TODO tips")
+                    to_append.append('<a href="/leagues/' + str(league.id) + '/tip/' + str(match.id) + '/">Tip</a>')
+                    
                 else:
                     to_append.append("Game not started yet")
         result.append(to_append)
