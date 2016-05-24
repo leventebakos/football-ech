@@ -99,7 +99,7 @@
 				{% for match in group_A_matches %}
 					<tr>
 						{% for column in match %}
-							<td>{{ column }}</td>
+							<td>{% autoescape off %}{{ column }}{% endautoescape %}</td>
 						{% endfor %}
 					</tr>
 				{% endfor %}
