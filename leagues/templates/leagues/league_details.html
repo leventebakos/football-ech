@@ -99,13 +99,13 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					{% for match in group_A_matches %}
+				{% for match in group_A_matches %}
+					<tr>
 						{% for column in match %}
 							<td>{{ column }}</td>
 						{% endfor %}
-					{% endfor %}
-				</tr>
+					</tr>
+				{% endfor %}
 			</tbody>
 		</table>
 	</div>
