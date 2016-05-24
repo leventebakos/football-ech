@@ -141,7 +141,7 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/leagues/my_leagues/'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
 SOCIAL_AUTH_LOGIN_URL = '/'
 
 SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
