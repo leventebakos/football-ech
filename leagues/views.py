@@ -152,6 +152,7 @@ def calculate_scores(user, league):
     all_user_tips = Tip.objects.filter(league = league, user = user)
     if all_user_tips.count > 0:
         result = all_user_tips.aggregate(Sum('score'))
+        update_correct_tips(correct_tips, league, all_user_tips)
     return (int(result['score__sum']), correct_tips)
 
 def update_tip_with_score(tip):
@@ -199,6 +200,20 @@ def init_correct_tips(league):
     if league.points_for_exact_away_goals != 0:
         result["away_goals"] = 0
     return result
+
+def update_correct_tips(correct_tips, league, all_user_tips):
+    if league.points_for_exact_guess != 0:
+        correct_tips["exact_guess"] = all_user_tips.filter(scoring_field = "exact_guess").count()
+    if league.points_for_goal_difference != 0:
+        correct_tips["goal_difference"] = all_user_tips.filter(scoring_field = "goal_difference").count()
+    if league.points_for_outcome != 0:
+        correct_tips["outcome"] = all_user_tips.filter(scoring_field = "outcome").count()
+    if league.points_for_number_of_goals != 0:
+        correct_tips["number_of_goals"] = all_user_tips.filter(scoring_field = "number_of_goals").count()
+    if league.points_for_exact_home_goals != 0:
+        correct_tips["home_goals"] = all_user_tips.filter(scoring_field = "home_goals").count()
+    if league.points_for_exact_away_goals != 0:
+        correct_tips["away_goals"] = all_user_tips.filter(scoring_field = "away_goals").count()
 
 def get_league_scoring_conditions(league):
     result = []
