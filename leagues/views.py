@@ -78,6 +78,12 @@ def get_group_matches(group_id, league, request):
     users_from_participants = LeagueParticipants.objects.values_list('user', flat=True).filter(league = league)
     users = User.objects.filter(pk__in=users_from_participants).all()
     result = []
+    to_append = ["Results"]
+    for match in matches:
+        if match.is_finished:
+            to_append.append(str(match.home_score) + "-" + str(match.away_score))
+        else:
+            to_append.append("No results yet")
     for user in users:
         to_append = [user.first_name + " " + user.last_name]
         for match in matches:
