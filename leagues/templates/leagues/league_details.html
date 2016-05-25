@@ -19,22 +19,22 @@
 					<tr>
 						<td>{{ user_score.0.first_name }} {{ user_score.0.last_name }}</td>
 						<td>{{ user_score.1.0 }}</td>
-						{% if user_score.1.1.exact_guess %}
+						{% if 'exact_guess' in user_score.1.1 %}
 							<td>{{ user_score.1.1.exact_guess }}</td>
 						{% endif %}
-						{% if user_score.1.1.goal_difference %}
+						{% if 'goal_difference' user_score.1.1 %}
 							<td>{{ user_score.1.1.goal_difference }}</td>
 						{% endif %}
-						{% if user_score.1.1.outcome %}
+						{% if 'outcome' user_score.1.1 %}
 							<td>{{ user_score.1.1.outcome }}</td>
 						{% endif %}
-						{% if user_score.1.1.number_of_goals %}
+						{% if 'number_of_goals' user_score.1.1 %}
 							<td>{{ user_score.1.1.number_of_goals }}</td>
 						{% endif %}
-						{% if user_score.1.1.home_goals %}
+						{% if 'home_goals' user_score.1.1 %}
 							<td>{{ user_score.1.1.home_goals }}</td>
 						{% endif %}
-						{% if user_score.1.1.away_goals %}
+						{% if 'away_goals' user_score.1.1 %}
 							<td>{{ user_score.1.1.away_goals }}</td>
 						{% endif %}
 					</tr>
