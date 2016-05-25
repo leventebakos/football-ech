@@ -150,7 +150,7 @@ def calculate_scores(user, league):
             if tip.is_score_calculated == False:
                 update_tip_with_score(tip)
     all_user_tips = Tip.objects.filter(league = league, user = user)
-    if all_user_tips.count > 0:
+    if all_user_tips.count() > 0:
         result = all_user_tips.aggregate(Sum('score'))
         result = int(result['score__sum'])
         update_correct_tips(correct_tips, league, all_user_tips)
