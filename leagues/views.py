@@ -57,7 +57,6 @@ def league_details(request, id):
     if LeagueParticipants.objects.filter(user = request.user, league = league).count() == 0:
         return HttpResponseRedirect('/leagues/my_leagues/')
     scoring_conditions = get_league_scoring_conditions(league);
-    update_tips
     standings = get_standings(league)
     matches = list_matches(request)
     group_A_matches = get_group_matches("A", league, request)
