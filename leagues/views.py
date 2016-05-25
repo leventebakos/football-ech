@@ -59,7 +59,7 @@ def league_details(request, id):
         return HttpResponseRedirect('/leagues/my_leagues/')
     scoring_conditions = get_league_scoring_conditions(league);
     standings = get_standings(league)
-    matches = list_matches(request)
+    matches = list_matches(request, league)
     group_A_matches = get_group_matches("A", league, request)
     group_B_matches = get_group_matches("B", league, request)
     group_C_matches = get_group_matches("C", league, request)
