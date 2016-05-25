@@ -9,6 +9,7 @@ from pip._vendor.requests.api import request
 from django.contrib.auth.models import User
 from django.utils import timezone
 from datetime import datetime
+from django.db.models import Sum
 
 @login_required(login_url='/')
 def create_league(request):
