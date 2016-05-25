@@ -84,6 +84,7 @@ def get_group_matches(group_id, league, request):
             to_append.append(str(match.home_score) + "-" + str(match.away_score))
         else:
             to_append.append("No results yet")
+    result.append(to_append)
     for user in users:
         to_append = [user.first_name + " " + user.last_name]
         for match in matches:
