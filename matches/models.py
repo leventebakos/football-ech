@@ -49,6 +49,7 @@ class Tip(models.Model):
 	away_score_tip = models.IntegerField()
 	score = models.IntegerField(default = 0)
 	scoring_field = models.CharField(max_length = 256, blank = True)
+	is_score_calculated = models.BooleanField(default = False)
 	
 	def __str__(self):
 		return self.user.username + " - " + self.league.league_name + ": " + self.match.home_team + " - " + self.match.away_team + ": " + str(self.home_score_tip) + " - " + str(self.away_score_tip)

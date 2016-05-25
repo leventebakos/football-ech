@@ -57,6 +57,7 @@ def league_details(request, id):
     if LeagueParticipants.objects.filter(user = request.user, league = league).count() == 0:
         return HttpResponseRedirect('/leagues/my_leagues/')
     scoring_conditions = get_league_scoring_conditions(league);
+    update_tips
     standings = get_standings(league)
     matches = list_matches(request)
     group_A_matches = get_group_matches("A", league, request)
@@ -144,36 +145,47 @@ def calculate_scores(user, league):
     finished_matches = Match.objects.filter(is_finished = True)
     for match in finished_matches:
         tip = Tip.objects.filter(league = league, match = match, user = user)
-        if tip.count() == 0:
-            continue
-        else:
+        if tip.count() != 0:
             tip = tip.first()
-            home_score_tip = tip.home_score_tip
-            away_score_tip = tip.away_score_tip
-            actual_home_score = match.home_score
-            actual_away_score = match.away_score
-            if is_exact_guess(home_score_tip, away_score_tip, actual_home_score, actual_away_score) and league.points_for_exact_guess != 0:
-                result += league.points_for_exact_guess
-                correct_tips["exact_guess"] += 1
-            if correct_goal_difference(home_score_tip, away_score_tip, actual_home_score, actual_away_score) and league.points_for_goal_difference != 0:
-                result += league.points_for_goal_difference
-                correct_tips["goal_difference"] += 1
-            if correct_outcome(home_score_tip, away_score_tip, actual_home_score, actual_away_score) and league.points_for_outcome != 0:
-                result += league.points_for_outcome
-                correct_tips["outcome"] += 1
-            if correct_number_of_goals(home_score_tip, away_score_tip, actual_home_score, actual_away_score) and league.points_for_number_of_goals != 0:
-                result += league.points_for_number_of_goals
-                correct_tips["number_of_goals"] += 1
-            if correct_home_goals(home_score_tip, away_score_tip, actual_home_score, actual_away_score) and league.points_for_exact_home_goals != 0:
-                result += league.points_for_exact_home_goals
-                correct_tips["home_goals"] += 1
-            if correct_away_goals(home_score_tip, away_score_tip, actual_home_score, actual_away_score) and league.points_for_exact_away_goals != 0:
-                result += league.points_for_exact_away_goals
-                correct_tips["away_goals"] += 1
+            if tip.is_score_calculated == False:
+                update_tip_with_score(tip)
+    all_user_tips = Tip.objects.filter(league = league, user = user)
+    if all_user_tips.count > 0:
+        result = all_user_tips.aggregate(Sum('score'))
     return (result, correct_tips)
 
+def update_tip_with_score(tip):
+    score = 0
+    scoring_field = ""
+    home_score_tip = tip.home_score_tip
+    away_score_tip = tip.away_score_tip
+    actual_home_score = tip.match.home_score
+    actual_away_score = tip.match.away_score
+    if is_exact_guess(home_score_tip, away_score_tip, actual_home_score, actual_away_score) and tip.league.points_for_exact_guess > score:
+        score = league.points_for_exact_guess
+        scoring_field = "exact_guess"
+    if correct_goal_difference(home_score_tip, away_score_tip, actual_home_score, actual_away_score) and tip.league.points_for_goal_difference > score:
+        score = league.points_for_goal_difference
+        scoring_field = "goal_difference"
+    if correct_outcome(home_score_tip, away_score_tip, actual_home_score, actual_away_score) and tip.league.points_for_outcome > score:
+        score = league.points_for_outcome
+        scoring_field = "outcome"
+    if correct_number_of_goals(home_score_tip, away_score_tip, actual_home_score, actual_away_score) and tip.league.points_for_number_of_goals > score:
+        score = league.points_for_number_of_goals
+        scoring_field = "number_of_goals"
+    if correct_home_goals(home_score_tip, away_score_tip, actual_home_score, actual_away_score) and tip.league.points_for_exact_home_goals > score:
+        score = league.points_for_exact_home_goals
+        scoring_field = "home_goals"
+    if correct_away_goals(home_score_tip, away_score_tip, actual_home_score, actual_away_score) and tip.league.points_for_exact_away_goals > score:
+        score = league.points_for_exact_away_goals
+        scoring_field = "away_goals"
+    tip.score = score
+    tip.scoring_field = scoring_field
+    tip.is_score_calculated = True
+    tip.save()
+
 def init_correct_tips(league):
-    result = {'exact_guess': -1, "goal_difference": -1, "outcome": -1, "number_of_goals": -1, "home_goals": -1, "away_goals": -1}
+    result = {}
     if league.points_for_exact_guess != 0:
         result["exact_guess"] = 0
     if league.points_for_goal_difference != 0:
