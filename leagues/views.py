@@ -161,22 +161,22 @@ def update_tip_with_score(tip):
     actual_home_score = tip.match.home_score
     actual_away_score = tip.match.away_score
     if is_exact_guess(home_score_tip, away_score_tip, actual_home_score, actual_away_score) and tip.league.points_for_exact_guess > score:
-        score = league.points_for_exact_guess
+        score = tip.league.points_for_exact_guess
         scoring_field = "exact_guess"
     if correct_goal_difference(home_score_tip, away_score_tip, actual_home_score, actual_away_score) and tip.league.points_for_goal_difference > score:
-        score = league.points_for_goal_difference
+        score = tip.league.points_for_goal_difference
         scoring_field = "goal_difference"
     if correct_outcome(home_score_tip, away_score_tip, actual_home_score, actual_away_score) and tip.league.points_for_outcome > score:
-        score = league.points_for_outcome
+        score = tip.league.points_for_outcome
         scoring_field = "outcome"
     if correct_number_of_goals(home_score_tip, away_score_tip, actual_home_score, actual_away_score) and tip.league.points_for_number_of_goals > score:
-        score = league.points_for_number_of_goals
+        score = tip.league.points_for_number_of_goals
         scoring_field = "number_of_goals"
     if correct_home_goals(home_score_tip, away_score_tip, actual_home_score, actual_away_score) and tip.league.points_for_exact_home_goals > score:
-        score = league.points_for_exact_home_goals
+        score = tip.league.points_for_exact_home_goals
         scoring_field = "home_goals"
     if correct_away_goals(home_score_tip, away_score_tip, actual_home_score, actual_away_score) and tip.league.points_for_exact_away_goals > score:
-        score = league.points_for_exact_away_goals
+        score = tip.league.points_for_exact_away_goals
         scoring_field = "away_goals"
     tip.score = score
     tip.scoring_field = scoring_field
