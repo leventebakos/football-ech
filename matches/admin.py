@@ -12,7 +12,7 @@ def delete_tips(modeladmin, request, queryset):
 delete_tips.delete_tips = "Delete calculated scores for tips for these matches"
             
 class MatchAdmin(admin.ModelAdmin):
-    actions = [make_published]
+    actions = [delete_tips]
 
 admin.site.register(Match, MatchAdmin)
 admin.site.register(Tip)
