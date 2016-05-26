@@ -93,7 +93,10 @@ def get_group_matches(group_id, league, request):
                 tip = Tip.objects.filter(league = league, match = match, user = user)
                 if tip.count() > 0:
                     tip = tip.first()
-                    to_append.append(str(tip.home_score_tip) + "-" + str(tip.away_score_tip))
+                    if match.is_finished:
+                        to_append.append('<table class="table table-striped table-bordered"><tr><td>' + str(tip.home_score_tip) + "-" + str(tip.away_score_tip)) + '</td><td>' + str(tip.score) + ' points</td></tr></table>'
+                    else:
+                        to_append.append(str(tip.home_score_tip) + "-" + str(tip.away_score_tip))
                 else:
                     to_append.append("No tip")
             else:
