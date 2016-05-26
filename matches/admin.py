@@ -4,7 +4,7 @@ from .models import Tip
 
 def delete_tips(modeladmin, request, queryset):
     for match in queryset:
-        tips = Tip.object.filter(match = match)
+        tips = Tip.objects.filter(match = match)
         for tip in tips:
             tip.score = 0
             tip.scoring_field = ""
