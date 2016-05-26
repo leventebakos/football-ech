@@ -9,6 +9,7 @@ def delete_tips(modeladmin, request, queryset):
             tip.score = 0
             tip.scoring_field = ""
             tip.is_score_calculated = False
+            tip.save()
 delete_tips.delete_tips = "Delete calculated scores for tips for these matches"
             
 class MatchAdmin(admin.ModelAdmin):
