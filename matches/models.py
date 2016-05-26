@@ -2,6 +2,8 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
 from leagues.models import League
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 class Match(models.Model):
 	COUNTRY_CHOICES = (
@@ -54,3 +56,12 @@ class Tip(models.Model):
 	def __str__(self):
 		return self.user.username + " - " + self.league.league_name + ": " + self.match.home_team + " - " + self.match.away_team + ": " + str(self.home_score_tip) + " - " + str(self.away_score_tip)
 	
+@receiver(post_save, sender = Match)
+def clear_tips(sender, **kwargs):
+	if kwargs.get('created', False):
+		tips = Tip.objects.filter(match = sender)
+		for tip in tips:
+			tip.score = 0
+			tip.scoring_field = ""
+			tip.is_score_calculated = False
+			tip.save()
