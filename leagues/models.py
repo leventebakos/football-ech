@@ -13,6 +13,9 @@ class League(models.Model):
     points_for_number_of_goals = models.IntegerField()
     points_for_exact_home_goals = models.IntegerField()
     points_for_exact_away_goals = models.IntegerField()
+    is_private = models.BooleanField(default = False)
+    league_secret_key = models.CharField(max_length = 256, blank = True, null = True)
+    creator = models.ForeignKey(User, models.CASCADE, blank = True, null = True)
     
     def __str__(self):
         return self.league_name

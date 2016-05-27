@@ -10,13 +10,14 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from datetime import datetime
 from django.db.models import Sum
+import string, random
 
 @login_required(login_url='/')
 def create_league(request):
     if request.method == 'POST':
         league_form = LeagueForm(request.POST)
         if league_form.is_valid():
-            league_to_save = league_form_to_league_converter(league_form)
+            league_to_save = league_form_to_league_converter(league_form, request)
             league_to_save.save()
             league_participant_to_save = league_participant_from_league_form(league_to_save, request)
             league_participant_to_save.save()
@@ -116,7 +117,7 @@ def get_group_matches(group_id, league, request):
 def get_group_headers(group_id):
     return Match.objects.filter(group = group_id).order_by('start_date')
  
-def league_form_to_league_converter(league_form):
+def league_form_to_league_converter(league_form, request):
     result = League()
     result.league_name = league_form.cleaned_data['league_name']
     result.max_size = league_form.cleaned_data['max_size']
@@ -126,7 +127,14 @@ def league_form_to_league_converter(league_form):
     result.points_for_number_of_goals = league_form.cleaned_data['points_for_number_of_goals']
     result.points_for_exact_home_goals = league_form.cleaned_data['points_for_exact_home_goals']
     result.points_for_exact_away_goals = league_form.cleaned_data['points_for_exact_away_goals']
+    result.is_private = league_form.cleaned_data['is_private']
+    if result.is_private:
+        result.league_secret_key = generate_league_secret_key()
+    result.creator = request.user
     return result
+    
+def generate_league_secret_key():    
+    return ''.join(random.choice(string.ascii_lowercase + string.ascii_uppercase + string.digits) for _ in range(10))
     
 def league_participant_from_league_form(league_to_save, request):
     result = LeagueParticipants()
@@ -224,7 +232,7 @@ def get_league_scoring_conditions(league):
     if league.points_for_exact_guess != 0:
         result.append("Exact guess")
     if league.points_for_goal_difference != 0:
-        result.append("Correct goal difference")
+        result.append("Correct outcome with goal difference")
     if league.points_for_outcome != 0:
         result.append("Correct outcome")
     if league.points_for_number_of_goals != 0:
