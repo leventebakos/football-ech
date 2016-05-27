@@ -3,6 +3,7 @@
 {% block content %}
 	<div class="col-md-6">
 		{% if leagues %}
+			<caption><h4>Available leagues</h4></caption>
 			<table id="standings_table" class="table table-striped table-bordered">
 				<thead>
 					<tr>
@@ -27,7 +28,7 @@
 	</div>
 	<div class="col-md-3">
 		{% if users_private_leagues_to_return %}
-			<caption><h1>Your private leagues' secret keys</h1></caption>
+			<caption><h4>Your private leagues' secret keys</h4></caption>
 			<table id="standings_table" class="table table-striped table-bordered">
 				<thead>
 					<tr>
