@@ -10,3 +10,6 @@ class LeagueForm(forms.Form):
     points_for_exact_home_goals = forms.IntegerField(label = "Points for exact home goals", min_value = 0, max_value = 100)
     points_for_exact_away_goals = forms.IntegerField(label = "Points for exact away goals", min_value = 0, max_value = 100)
     is_private = forms.BooleanField(label = "Private", required=False, initial = False)
+    
+class PrivateLeagueJoinForm(forms.Form):
+    private_league_secret_key = forms.CharField(label = "Private league secret key", max_length = 30)

@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^$', social_login.views.login),
     url(r'^logout/$', social_login.views.logout),
     url(r'^leagues/create_league/$', leagues.views.create_league),
+    url(r'^leagues/join_private_league/$', leagues.views.join_private_league),
     url(r'^leagues/join_league/$', leagues.views.list_available_leagues),
     url(r'^leagues/join_league/([0-9]+)/$', leagues.views.join_league),
     url(r'^leagues/my_leagues/$', leagues.views.get_my_leagues),

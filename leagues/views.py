@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .forms import LeagueForm
+from .forms import LeagueForm, PrivateLeagueJoinForm
 from .models import League, LeagueParticipants
 from matches.models import Match, Tip
 from matches.views import list_matches
@@ -27,6 +27,22 @@ def create_league(request):
         league_form = LeagueForm()
     return render(request, 'leagues/create_league.html', {'league_form': league_form})
 
+@login_required(login_url='/')
+def join_private_league(request):
+    if request.method == 'POST':
+        private_league_join_form = PrivateLeagueJoinForm(request.POST)
+        if private_league_join_form.is_valid():
+            secret_key = private_league_join_form.cleaned_data['private_league_secret_key']
+            league = League.objects.filter(league_secret_key = "secret_key")
+            if league.count() > 0:
+                league = league.first()
+                join_league(request, league.id)
+            return HttpResponseRedirect('/leagues/my_leagues/')
+        league_form = league_form
+    else:
+        private_league_join_form = PrivateLeagueJoinForm()
+    return render(request, 'leagues/list_available_leagues.html', {'private_league_join_form': private_league_join_form})
+    
 @login_required(login_url='/')
 def get_my_leagues(request):
     leagues_from_participants = LeagueParticipants.objects.values_list('league', flat=True).filter(user = request.user)

@@ -49,4 +49,13 @@
 		    <p>You do not have any private leagues.</p>
 		{% endif %}
 	</div>
+	<div class="row">
+		<div class="col-md-4">
+			<form action="/leagues/join_private_league/"  method="post">
+			    {% csrf_token %}
+			    {{ private_league_join_form|crispy }}
+			    <input class="btn btn-primary" type="submit" value="Submit" />
+			</form>
+		</div>
+	</div>
 {% endblock %}
