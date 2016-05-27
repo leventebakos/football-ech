@@ -36,6 +36,7 @@ def get_my_leagues(request):
 @login_required(login_url='/')
 def list_available_leagues(request):
     leagues_to_return = []
+    users_private_leagues_to_return = []
     leagues = League.objects.all()
     for league in leagues:
         if league.is_private == False:
@@ -43,7 +44,9 @@ def list_available_leagues(request):
             current_participants_in_league = LeagueParticipants.objects.filter(league = league).count()
             if current_participants_in_league < max_participants_in_league and LeagueParticipants.objects.filter(user = request.user, league = league).count() == 0:
                 leagues_to_return.append([league, max_participants_in_league - current_participants_in_league])
-    return render(request, 'leagues/list_available_leagues.html', {'leagues': leagues_to_return})
+        elif league.is_private == True and league.creator == request.user:
+            users_private_leagues_to_return.append(league)
+    return render(request, 'leagues/list_available_leagues.html', {'leagues': leagues_to_return, 'users_private_leagues_to_return': users_private_leagues_to_return})
 
 @login_required(login_url='/')
 def join_league(request, id):
