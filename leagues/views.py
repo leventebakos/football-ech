@@ -38,10 +38,10 @@ def join_private_league(request):
                 league = league.first()
                 join_league(request, league.id)
             return HttpResponseRedirect('/leagues/my_leagues/')
-        league_form = league_form
-    else:
-        private_league_join_form = PrivateLeagueJoinForm()
-    return render(request, 'leagues/list_available_leagues.html', {'private_league_join_form': private_league_join_form})
+        private_league_join_form = private_league_join_form
+    #else:
+    #    private_league_join_form = PrivateLeagueJoinForm()
+    #return render(request, 'leagues/list_available_leagues.html', {'private_league_join_form': private_league_join_form})
     
 @login_required(login_url='/')
 def get_my_leagues(request):
@@ -51,6 +51,7 @@ def get_my_leagues(request):
 
 @login_required(login_url='/')
 def list_available_leagues(request):
+    private_league_join_form = PrivateLeagueJoinForm()
     leagues_to_return = []
     users_private_leagues_to_return = []
     leagues = League.objects.all()
@@ -62,7 +63,7 @@ def list_available_leagues(request):
                 leagues_to_return.append([league, max_participants_in_league - current_participants_in_league])
         elif league.is_private == True and league.creator == request.user:
             users_private_leagues_to_return.append(league)
-    return render(request, 'leagues/list_available_leagues.html', {'leagues': leagues_to_return, 'users_private_leagues_to_return': users_private_leagues_to_return})
+    return render(request, 'leagues/list_available_leagues.html', {'leagues': leagues_to_return, 'users_private_leagues_to_return': users_private_leagues_to_return, 'private_league_join_form': private_league_join_form})
 
 @login_required(login_url='/')
 def join_league(request, id):
