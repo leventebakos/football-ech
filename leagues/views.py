@@ -33,15 +33,11 @@ def join_private_league(request):
         private_league_join_form = PrivateLeagueJoinForm(request.POST)
         if private_league_join_form.is_valid():
             secret_key = private_league_join_form.cleaned_data['private_league_secret_key']
-            league = League.objects.filter(league_secret_key = "secret_key")
+            league = League.objects.filter(league_secret_key = secret_key)
             if league.count() > 0:
                 league = league.first()
                 join_league(request, league.id)
             return HttpResponseRedirect('/leagues/my_leagues/')
-        private_league_join_form = private_league_join_form
-    #else:
-    #    private_league_join_form = PrivateLeagueJoinForm()
-    #return render(request, 'leagues/list_available_leagues.html', {'private_league_join_form': private_league_join_form})
     
 @login_required(login_url='/')
 def get_my_leagues(request):
