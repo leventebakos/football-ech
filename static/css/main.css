@@ -4,7 +4,7 @@
 
 .flag_and_country {
 	float: left;
-	width: 38%;
+	width: 30%;
 }
 
 .next_5_matches {
@@ -13,10 +13,15 @@
 
 .tip {
 	float: left;
-	width: 24%;
+	width: 10%;
 	line-height: 68px;
 	display: table-cell;
 	vertical-align: middle;
+}
+
+.start_date {
+	float: left;
+	width: 30%;
 }
 
 .group {
