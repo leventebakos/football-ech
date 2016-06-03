@@ -62,9 +62,9 @@
 						</div>
 						<div class="tip">
 							{% if match_view.1 %}
-				            	<a href="/leagues/{{ league_id }}/tip/{{ match_view.0.id }}/">{{ match_view.1.home_score_tip }} - {{ match_view.1.away_score_tip }}</a><p>{{ match_view.0.start_date|date:"F-d G:i" }}</p>
+				            	<a href="/leagues/{{ league_id }}/tip/{{ match_view.0.id }}/">{{ match_view.1.home_score_tip }} - {{ match_view.1.away_score_tip }}</a><h5>{{ match_view.0.start_date|date:"F-d G:i" }}</h5>
 				            {% else %}
-				            	<a href="/leagues/{{ league_id }}/tip/{{ match_view.0.id }}/">Tip</a><p>{{ match_view.0.start_date|date:"F-d G:i" }}</p>
+				            	<a href="/leagues/{{ league_id }}/tip/{{ match_view.0.id }}/">Tip</a><h5>{{ match_view.0.start_date|date:"F-d G:i" }}</h5>
 				            {% endif %}
 			            </div>
 			            <div class="flag_and_country">
