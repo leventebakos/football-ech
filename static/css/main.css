@@ -24,6 +24,16 @@
 	width: 30%;
 }
 
+.flag {
+	width: 50%;
+	margin: 0 auto;
+}
+
+.country {
+	width: 50%;
+	margin: 0 auto;
+}
+
 .group {
 	margin-bottom: 40px;
 }
