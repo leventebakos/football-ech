@@ -50,7 +50,7 @@
 					<tr>
 						<th>Final</th>
 						{% for match in round_of_2_header %}
-							<th>{{ match.get_home_team_display}} - {{ match.get_away_team_display}}<br />{{ match.start_date|date:"F-d G:i" }}</th>
+							<th><div class="fixture">{{ match.get_home_team_display}} - {{ match.get_away_team_display}}</div><br /><div class="fixture_start_date">{{ match.start_date|date:"F-d G:i" }}</div></th>
 						{% endfor %}
 					</tr>
 				</thead>
@@ -74,7 +74,7 @@
 					<tr>
 						<th>Semi-finals</th>
 						{% for match in round_of_4_header %}
-							<th>{{ match.get_home_team_display}} - {{ match.get_away_team_display}}<br />{{ match.start_date|date:"F-d G:i" }}</th>
+							<th><div class="fixture">{{ match.get_home_team_display}} - {{ match.get_away_team_display}}</div><br /><div class="fixture_start_date">{{ match.start_date|date:"F-d G:i" }}</div></th>
 						{% endfor %}
 					</tr>
 				</thead>
@@ -98,7 +98,7 @@
 					<tr>
 						<th>Quarter-finals</th>
 						{% for match in round_of_8_header %}
-							<th>{{ match.get_home_team_display}} - {{ match.get_away_team_display}}<br />{{ match.start_date|date:"F-d G:i" }}</th>
+							<th><div class="fixture">{{ match.get_home_team_display}} - {{ match.get_away_team_display}}</div><br /><div class="fixture_start_date">{{ match.start_date|date:"F-d G:i" }}</div></th>
 						{% endfor %}
 					</tr>
 				</thead>
@@ -122,7 +122,7 @@
 					<tr>
 						<th>Round of 16</th>
 						{% for match in round_of_16_header %}
-							<th>{{ match.get_home_team_display}} - {{ match.get_away_team_display}}<br />{{ match.start_date|date:"F-d G:i" }}</th>
+							<th><div class="fixture">{{ match.get_home_team_display}} - {{ match.get_away_team_display}}</div><br /><div class="fixture_start_date">{{ match.start_date|date:"F-d G:i" }}</div></th>
 						{% endfor %}
 					</tr>
 				</thead>
@@ -145,7 +145,7 @@
 				<tr>
 					<th>Group A</th>
 					{% for match in group_A_header %}
-						<th>{{ match.get_home_team_display}} - {{ match.get_away_team_display}}<br />{{ match.start_date|date:"F-d G:i" }}</th>
+						<th><div class="fixture">{{ match.get_home_team_display}} - {{ match.get_away_team_display}}</div><br /><div class="fixture_start_date">{{ match.start_date|date:"F-d G:i" }}</div></th>
 					{% endfor %}
 				</tr>
 			</thead>
@@ -167,7 +167,7 @@
 				<tr>
 					<th>Group B</th>
 					{% for match in group_B_header %}
-						<th>{{ match.get_home_team_display}} - {{ match.get_away_team_display}}<br />{{ match.start_date|date:"F-d G:i" }}</th>
+						<th><div class="fixture">{{ match.get_home_team_display}} - {{ match.get_away_team_display}}</div><br /><div class="fixture_start_date">{{ match.start_date|date:"F-d G:i" }}</div></th>
 					{% endfor %}
 				</tr>
 			</thead>
@@ -189,7 +189,7 @@
 				<tr>
 					<th>Group C</th>
 					{% for match in group_C_header %}
-						<th>{{ match.get_home_team_display}} - {{ match.get_away_team_display}}<br />{{ match.start_date|date:"F-d G:i" }}</th>
+						<th><div class="fixture">{{ match.get_home_team_display}} - {{ match.get_away_team_display}}</div><br /><div class="fixture_start_date">{{ match.start_date|date:"F-d G:i" }}</div></th>
 					{% endfor %}
 				</tr>
 			</thead>
@@ -211,7 +211,7 @@
 				<tr>
 					<th>Group D</th>
 					{% for match in group_D_header %}
-						<th>{{ match.get_home_team_display}} - {{ match.get_away_team_display}}<br />{{ match.start_date|date:"F-d G:i" }}</th>
+						<th><div class="fixture">{{ match.get_home_team_display}} - {{ match.get_away_team_display}}</div><br /><div class="fixture_start_date">{{ match.start_date|date:"F-d G:i" }}</div></th>
 					{% endfor %}
 				</tr>
 			</thead>
@@ -233,7 +233,7 @@
 				<tr>
 					<th>Group E</th>
 					{% for match in group_E_header %}
-						<th>{{ match.get_home_team_display}} - {{ match.get_away_team_display}}<br />{{ match.start_date|date:"F-d G:i" }}</th>
+						<th><div class="fixture">{{ match.get_home_team_display}} - {{ match.get_away_team_display}}</div><br /><div class="fixture_start_date">{{ match.start_date|date:"F-d G:i" }}</div></th>
 					{% endfor %}
 				</tr>
 			</thead>
@@ -255,7 +255,7 @@
 				<tr>
 					<th>Group F</th>
 					{% for match in group_F_header %}
-						<th>{{ match.get_home_team_display}} - {{ match.get_away_team_display}}<br />{{ match.start_date|date:"F-d G:i" }}</th>
+						<th><div class="fixture">{{ match.get_home_team_display}} - {{ match.get_away_team_display}}</div><br /><div class="fixture_start_date">{{ match.start_date|date:"F-d G:i" }}</div></th>
 					{% endfor %}
 				</tr>
 			</thead>
@@ -277,7 +277,7 @@
 				<tr>
 					<th>Group G</th>
 					{% for match in group_G_header %}
-						<th>{{ match.get_home_team_display}} - {{ match.get_away_team_display}}<br />{{ match.start_date|date:"F-d G:i" }}</th>
+						<th><div class="fixture">{{ match.get_home_team_display}} - {{ match.get_away_team_display}}</div><br /><div class="fixture_start_date">{{ match.start_date|date:"F-d G:i" }}</div></th>
 					{% endfor %}
 				</tr>
 			</thead>
@@ -299,7 +299,7 @@
 				<tr>
 					<th>Group H</th>
 					{% for match in group_H_header %}
-						<th>{{ match.get_home_team_display}} - {{ match.get_away_team_display}}<br />{{ match.start_date|date:"F-d G:i" }}</th>
+						<th><div class="fixture">{{ match.get_home_team_display}} - {{ match.get_away_team_display}}</div><br /><div class="fixture_start_date">{{ match.start_date|date:"F-d G:i" }}</div></th>
 					{% endfor %}
 				</tr>
 			</thead>
