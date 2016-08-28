@@ -7,13 +7,13 @@ from django.dispatch import receiver
 
 class Match(models.Model):
 	COUNTRY_CHOICES = (
-		('AM', "Atletico Madrid"),
+		('AM', "Atl. Madrid"),
 		('AR', "Arsenal"),
 		('BA', "Basel"),
 		('BC', "Barcelona"),
-		('BD', "Borussia Dortmund"),
-		('BL', "Bayer Leverkusen"),
-		('BM', "Borussia Monchengladbach"),
+		('BD', "Dortmund"),
+		('BL', "Leverkusen"),
+		('BM', "B. Monchengladbach"),
 		('BN', "Benfica"),
 		('BR', "FC Bruges"),
 		('BS', "Besiktas"),
@@ -33,7 +33,7 @@ class Match(models.Model):
 		('NA', "Napoli"),
 		('PE', "PSV Eindhoven"),
 		('PP', "Porto"),
-		('PS', "Paris Saint-Germain"),
+		('PS', "PSG"),
 		('RM', "Real Madrid"),
 		('RS', "FK Rosztov"),
 		('SC', "Sporting CP"),

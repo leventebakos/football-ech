@@ -61,3 +61,12 @@ th.headerSortUp {
     background-image: url(../img/small_asc.gif); 
     background-color: #9d9d9d; 
 }
+
+.fixture {
+	font-size: 10px;
+}
+
+.fixture_start_date {
+	font-size: 10px;
+	font-weight: normal !important;
+}
