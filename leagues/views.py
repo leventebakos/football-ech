@@ -77,6 +77,7 @@ def league_details(request, id):
         return HttpResponseRedirect('/leagues/my_leagues/')
     scoring_conditions = get_league_scoring_conditions(league);
     standings = get_standings(league)
+    matches = list_matches(request, league)
     group_A_matches = get_group_matches("A", league, request)
     group_B_matches = get_group_matches("B", league, request)
     group_C_matches = get_group_matches("C", league, request)
@@ -101,7 +102,7 @@ def league_details(request, id):
     round_of_8_header = get_group_headers("ROUND_OF_8")
     round_of_4_header = get_group_headers("ROUND_OF_4")
     round_of_2_header = get_group_headers("ROUND_OF_2")
-    return render(request, 'leagues/league_details.html', {'standings': standings, 'league_id': id, 'scoring_conditions': scoring_conditions, 'league_name': league.league_name, 'group_A_matches': group_A_matches, 'group_A_header': group_A_header, 'group_B_matches': group_B_matches, 'group_B_header': group_B_header, 'group_C_matches': group_C_matches, 'group_C_header': group_C_header, 'group_D_matches': group_D_matches, 'group_D_header': group_D_header, 'group_E_matches': group_E_matches, 'group_E_header': group_E_header, 'group_F_matches': group_F_matches, 'group_F_header': group_F_header, 'group_G_matches': group_G_matches, 'group_G_header': group_G_header, 'group_H_matches': group_H_matches, 'group_H_header': group_H_header, 'round_of_16_matches': round_of_16_matches, 'round_of_8_matches': round_of_8_matches, 'round_of_4_matches': round_of_4_matches, 'round_of_2_matches': round_of_2_matches, 'round_of_16_header': round_of_16_header, 'round_of_8_header': round_of_8_header, 'round_of_4_header': round_of_4_header, 'round_of_2_header': round_of_2_header})
+    return render(request, 'leagues/league_details.html', {'standings': standings, 'matches_view': matches['matches_view'], 'league_id': id, 'scoring_conditions': scoring_conditions, 'league_name': league.league_name, 'group_A_matches': group_A_matches, 'group_A_header': group_A_header, 'group_B_matches': group_B_matches, 'group_B_header': group_B_header, 'group_C_matches': group_C_matches, 'group_C_header': group_C_header, 'group_D_matches': group_D_matches, 'group_D_header': group_D_header, 'group_E_matches': group_E_matches, 'group_E_header': group_E_header, 'group_F_matches': group_F_matches, 'group_F_header': group_F_header, 'group_G_matches': group_G_matches, 'group_G_header': group_G_header, 'group_H_matches': group_H_matches, 'group_H_header': group_H_header, 'round_of_16_matches': round_of_16_matches, 'round_of_8_matches': round_of_8_matches, 'round_of_4_matches': round_of_4_matches, 'round_of_2_matches': round_of_2_matches, 'round_of_16_header': round_of_16_header, 'round_of_8_header': round_of_8_header, 'round_of_4_header': round_of_4_header, 'round_of_2_header': round_of_2_header})
 
 def get_group_matches(group_id, league, request):
     matches = Match.objects.filter(group = group_id).order_by('start_date')
