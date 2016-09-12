@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 
 def list_matches(request, league):
-    matches = Match.objects.filter(start_date__gt=datetime.now(), is_finished = False).order_by('start_date')[:5]
+    matches = Match.objects.filter(start_date__gt=datetime.now(), is_finished = False).order_by('start_date')[:8]
     matches_view = []
     for match in matches:
         tip = Tip.objects.filter(user = request.user, match = match, league = league)
